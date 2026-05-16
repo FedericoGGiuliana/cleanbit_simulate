@@ -15,7 +15,7 @@ def generate_launch_description():
     # Define the robot's name and package name
     robot_name = "cleanbit"
     package_name = "cleanbit_simulate"
-    world_file_name = "laboratory.sdf"
+    world_file_name = "house.sdf"
     
 
     

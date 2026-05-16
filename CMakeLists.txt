@@ -25,9 +25,6 @@ install(
 # Installa script Python
 install(PROGRAMS
   cleanbit_simulate/odom_to_tf.py
-  cleanbit_simulate/create_request.py
-  cleanbit_simulate/send_goal.py
-  cleanbit_simulate/explore.py
 
   DESTINATION lib/${PROJECT_NAME}
 )
