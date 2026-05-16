@@ -1,0 +1,22 @@
+twist_mux:
+  ros__parameters:
+    # Usa TwistStamped se i tuoi nodi (Nav2) pubblicano TwistStamped, altrimenti false
+    use_stamped: false
+
+    # Blocchi di sicurezza per evitare comandi indesiderati
+    use_angular_lock: true
+    use_linear_lock: true
+    lock_timeout: 0.2
+
+    topics:
+      # Comandi di Nav2
+      navigation:
+        topic: "/cmd_vel_nav"      # Nav2 deve pubblicare qui, NON /cmd_vel
+        timeout: 0.5               # se non arrivano comandi > 0.5s, topic considerato inattivo
+        priority: 10
+
+      # Comandi joystick
+      joystick:
+        topic: "/cmd_vel_joy"      # teleop_twist_joy pubblica qui
+        timeout: 0.5
+        priority: 100
