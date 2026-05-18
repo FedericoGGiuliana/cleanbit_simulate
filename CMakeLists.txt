@@ -24,6 +24,8 @@ install(
 
 # Installa script Python
 install(PROGRAMS
+  cleanbit_simulate/cleaning.py
+
   cleanbit_simulate/odom_to_tf.py
 
   DESTINATION lib/${PROJECT_NAME}
@@ -41,4 +43,3 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
