@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-package_name = 'gazebo_differential_drive_robot'
+package_name = 'cleanbit_simulate'
 
 setup(
     name=package_name,
@@ -16,7 +16,9 @@ setup(
     license='MIT',
     entry_points={
         'console_scripts': [
-            'odom_to_tf = gazebo_differential_drive_robot.odom_to_tf:main'
+            'odom_to_tf = cleanbit_simulate.odom_to_tf:main',
+            'supervisor = cleanbit_simulate.supervisor:main',
+            'map_manager = cleanbit_simulate.map_manager_node:main'
         ],
     },
 )

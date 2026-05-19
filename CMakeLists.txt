@@ -25,6 +25,9 @@ install(
 # Installa script Python
 install(PROGRAMS
   cleanbit_simulate/odom_to_tf.py
+  cleanbit_simulate/supervisor.py
+  cleanbit_simulate/map_manager_node.py
+  cleanbit_simulate/room_editor.py
 
   DESTINATION lib/${PROJECT_NAME}
 )
