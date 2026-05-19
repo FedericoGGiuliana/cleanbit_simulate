@@ -6,6 +6,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 
+ament_python_install_package(${PROJECT_NAME})
+
 # Aggiungi opzioni di compilazione se usi C++ (utile se in futuro aggiungi nodi in C++)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -18,7 +20,7 @@ install(
 )
 
 install(
-  DIRECTORY worlds meshes
+  DIRECTORY worlds meshes data models cleanbit_simulate
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -29,6 +31,11 @@ install(PROGRAMS
   cleanbit_simulate/map_manager_node.py
   cleanbit_simulate/room_editor.py
 
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  scripts/nlu_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -44,4 +51,3 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
