@@ -15,12 +15,7 @@ endif()
 
 # Installa cartelle di configurazione e modelli
 install(
-  DIRECTORY launch model config
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(
-  DIRECTORY worlds meshes data models cleanbit_simulate
+  DIRECTORY launch model config worlds meshes data models cleanbit_simulate maps
   DESTINATION share/${PROJECT_NAME}
 )
 

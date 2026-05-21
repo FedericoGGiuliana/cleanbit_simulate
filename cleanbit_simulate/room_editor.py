@@ -18,6 +18,8 @@ from tkinter import simpledialog, messagebox, filedialog
 from PIL import Image, ImageTk, ImageDraw
 import yaml
 
+from ament_index_python import get_package_share_directory
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Conversione pixel ↔ coordinate mondo ROS
@@ -376,13 +378,7 @@ class RoomEditor:
             messagebox.showinfo('Info', 'Nessuna stanza da salvare.')
             return
 
-        path = filedialog.asksaveasfilename(
-            title='Salva stanze',
-            defaultextension='.json',
-            filetypes=[('JSON', '*.json')]
-        )
-        if not path:
-            return
+        path = os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps', 'rooms.json')
 
         # Output pulito senza colore e pixel interni
         output = []
@@ -401,10 +397,7 @@ class RoomEditor:
         messagebox.showinfo('Salvato', f'{len(output)} stanze salvate in:\n{path}')
 
     def _load_rooms(self):
-        path = filedialog.askopenfilename(
-            title='Carica stanze',
-            filetypes=[('JSON', '*.json')]
-        )
+        path = os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps', 'rooms.json')
         if not path:
             return
         with open(path, 'r') as f:
@@ -453,6 +446,8 @@ def main():
     root = tk.Tk()
     root.geometry('1200x800')
     app  = RoomEditor(root, map_info)
+    if os.path.exists(os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps', 'rooms.json')):
+        app._load_rooms()
     root.mainloop()
 
 
