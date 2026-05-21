@@ -190,6 +190,13 @@ def generate_launch_description():
         output='screen'
     )
 
+    nlu_node = Node(
+        package=package_name,
+        executable='nlu_node',
+        name='nlu_node',
+        output='screen'
+    )
+
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -214,5 +221,6 @@ def generate_launch_description():
         joy_node,
         teleop_node,
         supervisor_node,
+        nlu_node,
         rviz_node
     ])

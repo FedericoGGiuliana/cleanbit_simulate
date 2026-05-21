@@ -30,12 +30,8 @@ install(PROGRAMS
   cleanbit_simulate/supervisor.py
   cleanbit_simulate/map_manager_node.py
   cleanbit_simulate/room_editor.py
+  cleanbit_simulate/nlu_node
 
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(PROGRAMS
-  scripts/nlu_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
