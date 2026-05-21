@@ -1,0 +1,91 @@
+text,intent
+mappa la casa,START_MAPPING
+inizia a mappare,START_MAPPING
+esplora l'appartamento,START_MAPPING
+fai una mappa delle stanze,START_MAPPING
+scansiona la casa,START_MAPPING
+avvia la mappatura,START_MAPPING
+comincia esplorazione,START_MAPPING
+crea la mappa dell'ambiente,START_MAPPING
+costruisci la mappa,START_MAPPING
+parti con la mappa,START_MAPPING
+pulisci la cucina,CLEAN_AREA
+aspira il bagno,CLEAN_AREA
+lava il soggiorno,CLEAN_AREA
+pulisci camera e ingresso,CLEAN_AREA
+inizia a pulire il ripostiglio,CLEAN_AREA
+passa lo sporco in cucina,CLEAN_AREA
+fai pulizia nel salone,CLEAN_AREA
+pulisci la cucina evitando il bagno,CLEAN_AREA
+pulisci il soggiorno passando dal corridoio,CLEAN_AREA
+puliscimi la camera,CLEAN_AREA
+vai in cucina,GO_TO_AREA
+raggiungi il bagno,GO_TO_AREA
+portati in soggiorno,GO_TO_AREA
+spostati in camera,GO_TO_AREA
+vai all'ingresso,GO_TO_AREA
+raggiungi il ripostiglio passando dal salone,GO_TO_AREA
+vai in cucina evitando il bagno,GO_TO_AREA
+muoviti verso il corridoio,GO_TO_AREA
+vai nel salone,GO_TO_AREA
+raggiungi la camera attraversando il corridoio,GO_TO_AREA
+torna alla base,RETURN_HOME
+ritorna alla base,RETURN_HOME
+vai alla stazione di ricarica,RETURN_HOME
+torna a casa,RETURN_HOME
+rientra alla base,RETURN_HOME
+raggiungi la dock,RETURN_HOME
+vai al punto di partenza,RETURN_HOME
+rientra alla stazione,RETURN_HOME
+torna al caricatore,RETURN_HOME
+rientra alla base di ricarica,RETURN_HOME
+cosa stai facendo,STATUS_REQUEST
+a che punto sei,STATUS_REQUEST
+qual è lo stato,STATUS_REQUEST
+dimmi lo stato del robot,STATUS_REQUEST
+sei fermo o stai lavorando,STATUS_REQUEST
+quanto manca,STATUS_REQUEST
+stai pulendo,STATUS_REQUEST
+la missione è attiva,STATUS_REQUEST
+come procede,STATUS_REQUEST
+dammi un aggiornamento,STATUS_REQUEST
+aiuto,HELP_REQUEST
+help,HELP_REQUEST
+cosa posso dire,HELP_REQUEST
+quali comandi capisci,HELP_REQUEST
+mostrami i comandi,HELP_REQUEST
+come ti posso comandare,HELP_REQUEST
+dammi una mano,HELP_REQUEST
+spiegami cosa sai fare,HELP_REQUEST
+che comandi posso usare,HELP_REQUEST
+mi serve aiuto,HELP_REQUEST
+sì,CONFIRM
+si,CONFIRM
+ok,CONFIRM
+va bene,CONFIRM
+confermo,CONFIRM
+procedi,CONFIRM
+esatto,CONFIRM
+corretto,CONFIRM
+fallo,CONFIRM
+conferma,CONFIRM
+no,DENY
+non confermo,DENY
+annulla,DENY
+lascia stare,DENY
+non farlo,DENY
+negativo,DENY
+sbagliato,DENY
+ferma la richiesta,DENY
+non va bene,DENY
+rifiuto,DENY
+blabla senza senso,UNKNOWN
+banana sul tavolo,UNKNOWN
+non so cosa voglio,UNKNOWN
+questa frase non è un comando,UNKNOWN
+parole casuali robot cielo,UNKNOWN
+domani forse vediamo,UNKNOWN
+il gatto dorme sul divano,UNKNOWN
+quanto costa il pane,UNKNOWN
+raccontami una storia,UNKNOWN
+che tempo fa oggi,UNKNOWN
