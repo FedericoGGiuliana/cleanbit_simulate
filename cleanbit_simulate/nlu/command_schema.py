@@ -59,7 +59,6 @@ def build_command(
             "targets": slots.get("targets", []),
             "constraints": {
                 "avoid": constraints.get("avoid", []),
-                "via": constraints.get("via", []),
             },
         },
         "dialogue": _dialogue_for(internal_intent),
@@ -85,7 +84,6 @@ def _clarification_command(
             "targets": [],
             "constraints": {
                 "avoid": [],
-                "via": [],
             },
         },
         "dialogue": {

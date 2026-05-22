@@ -11,7 +11,7 @@ from spacy.training import Example
 from spacy.util import minibatch
 
 
-LABELS = ("TARGET", "AVOID", "VIA")
+LABELS = ("TARGET", "AVOID")
 
 
 def package_root() -> Path:
@@ -26,10 +26,33 @@ def load_dataset(dataset_path: Path) -> list[tuple[str, dict]]:
             if not line:
                 continue
             row = json.loads(line)
+            validate_row(row, line_number)
             examples.append((row["text"], {"entities": row["entities"]}))
     if not examples:
         raise RuntimeError(f"Dataset vuoto: {dataset_path}")
     return examples
+
+
+def validate_row(row: dict, line_number: int) -> None:
+    text = row.get("text", "")
+    entities = row.get("entities", [])
+    if not isinstance(text, str) or not text:
+        raise ValueError(f"Riga {line_number}: campo text mancante o vuoto")
+    spans: list[tuple[int, int]] = []
+    for entity in entities:
+        if len(entity) != 3:
+            raise ValueError(f"Riga {line_number}: entità non valida: {entity}")
+        start, end, label = entity
+        if label not in LABELS:
+            raise ValueError(f"Riga {line_number}: label non valida {label!r} in frase: {text}")
+        if not isinstance(start, int) or not isinstance(end, int) or start < 0 or end > len(text) or start >= end:
+            raise ValueError(f"Riga {line_number}: offset non validi {entity} in frase: {text}")
+        span = text[start:end]
+        if span != span.strip():
+            raise ValueError(f"Riga {line_number}: span con spazi extra {span!r} in frase: {text}")
+        if any(start < other_end and end > other_start for other_start, other_end in spans):
+            raise ValueError(f"Riga {line_number}: entità sovrapposte in frase: {text}")
+        spans.append((start, end))
 
 
 def train(examples: list[tuple[str, dict]], iterations: int) -> spacy.Language:
@@ -64,7 +87,7 @@ def main() -> None:
         "--output",
         default=str(root / "models" / "slot_filler_spacy"),
     )
-    parser.add_argument("--iterations", type=int, default=35)
+    parser.add_argument("--iterations", type=int, default=80)
     args = parser.parse_args()
 
     dataset_path = Path(args.dataset).expanduser().resolve()
@@ -79,4 +102,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

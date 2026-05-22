@@ -16,8 +16,7 @@ class SpacySlotExtractor:
         normalized = text.lower()
         mentioned = self._extract_area_mentions(normalized)
         avoid = self._extract_role_areas(normalized, mentioned, self._avoid_prefixes())
-        via = self._extract_role_areas(normalized, mentioned, self._via_prefixes())
-        blocked = set(avoid).union(via)
+        blocked = set(avoid)
 
         if internal_intent in {"CLEAN_AREA", "GO_TO_AREA"}:
             targets = [area for area in mentioned if area not in blocked]
@@ -28,7 +27,6 @@ class SpacySlotExtractor:
             "targets": self._unique(targets),
             "constraints": {
                 "avoid": self._unique(avoid),
-                "via": self._unique(via),
             },
         }
 
@@ -83,22 +81,16 @@ class SpacySlotExtractor:
             r"senza\s+passare\s+",
             r"non\s+passare\s+",
             r"non\s+attraversare\s+",
+            r"non\s+andare\s+",
+            r"non\s+entrare\s+",
+            r"manco\s+",
             r"lontano\s+",
             r"escludi\s+",
         )
 
-    def _via_prefixes(self) -> tuple[str, ...]:
-        return (
-            r"passando\s+",
-            r"passa\s+",
-            r"passare\s+",
-            r"attraverso\s+",
-            r"attraversando\s+",
-        )
-
     def _area_pattern(self, area: str) -> str:
         article = r"(?:(?:il|la|lo|l'|l’)\s+)?"
-        preposition = r"(?:(?:dal|dalla|dallo|da|per|attraverso)\s+)?"
+        preposition = r"(?:(?:dal|dalla|dallo|da|nel|nella|nello|in|per|attraverso)\s+)?"
         return preposition + article + re.escape(area) + r"\b"
 
     def _unique(self, values: list[str]) -> list[str]:

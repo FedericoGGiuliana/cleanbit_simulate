@@ -63,7 +63,7 @@ class EmbeddingIntentClassifier:
 
         if any(word in normalized for word in ("mappa", "esplora", "scansiona")):
             return "START_MAPPING", 0.75
-        if any(phrase in normalized for phrase in ("pulisci", "aspira", "lava")):
+        if any(phrase in normalized for phrase in ("pulisci", "aspira", "lava", "spolvera", "dai una passata", "fai una pulita", "ripulisci", "sistema")):
             return "CLEAN_AREA", 0.68
         if any(phrase in normalized for phrase in ("vai", "raggiungi", "portati", "spostati")):
             return "GO_TO_AREA", 0.68

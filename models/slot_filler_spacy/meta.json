@@ -19,8 +19,7 @@
   "labels":{
     "ner":[
       "AVOID",
-      "TARGET",
-      "VIA"
+      "TARGET"
     ]
   },
   "pipeline":[

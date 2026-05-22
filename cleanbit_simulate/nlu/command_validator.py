@@ -13,8 +13,9 @@ VALIDATION_MESSAGES = {
 
 
 class CommandValidator:
-    def __init__(self, confidence_threshold: float = 0.45) -> None:
+    def __init__(self, confidence_threshold: float = 0.45, target_confidence_threshold: float = 0.35) -> None:
         self.confidence_threshold = confidence_threshold
+        self.target_confidence_threshold = target_confidence_threshold
 
     def validate(
         self,
@@ -44,14 +45,21 @@ class CommandValidator:
     ) -> str | None:
         if not text.strip():
             return "EMPTY_TEXT"
-        if confidence < self.confidence_threshold:
-            return "LOW_CONFIDENCE"
         if internal_intent == "UNKNOWN":
             return "UNKNOWN_INTENT"
 
         targets = set(slots.get("targets", []))
         avoid = set(slots.get("constraints", {}).get("avoid", []))
 
+        if confidence < self.confidence_threshold:
+            if (
+                internal_intent in {"CLEAN_AREA", "GO_TO_AREA"}
+                and targets
+                and confidence >= self.target_confidence_threshold
+            ):
+                pass
+            else:
+                return "LOW_CONFIDENCE"
         if targets.intersection(avoid):
             return "TARGET_EQUALS_AVOID"
         if internal_intent in {"CLEAN_AREA", "GO_TO_AREA"} and not targets and avoid:

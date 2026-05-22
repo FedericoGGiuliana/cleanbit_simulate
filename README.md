@@ -46,8 +46,7 @@ Esempio di output per `mappa la casa`:
     "action": "map",
     "targets": [],
     "constraints": {
-      "avoid": [],
-      "via": []
+      "avoid": []
     }
   },
   "dialogue": {

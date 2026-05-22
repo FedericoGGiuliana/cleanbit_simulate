@@ -1,83 +1,239 @@
+{"text": "pulisci cucina e bagno", "entities": [[8, 14, "TARGET"], [17, 22, "TARGET"]]}
+{"text": "pulisci cucina, bagno e soggiorno", "entities": [[8, 14, "TARGET"], [16, 21, "TARGET"], [24, 33, "TARGET"]]}
+{"text": "pulisci cucina e bagno ma evita soggiorno e camera", "entities": [[8, 14, "TARGET"], [17, 22, "TARGET"], [32, 41, "AVOID"], [44, 50, "AVOID"]]}
+{"text": "evita il bagno e pulisci la cucina", "entities": [[9, 14, "AVOID"], [28, 34, "TARGET"]]}
+{"text": "non entrare in bagno, pulisci la cucina", "entities": [[15, 20, "AVOID"], [33, 39, "TARGET"]]}
+{"text": "non passare dal salone e pulisci il bagno", "entities": [[16, 22, "AVOID"], [36, 41, "TARGET"]]}
+{"text": "pulisci tutto tranne il bagno", "entities": [[24, 29, "AVOID"]]}
+{"text": "pulisci la casa tranne il bagno", "entities": [[26, 31, "AVOID"]]}
+{"text": "pulisci cucina escluso bagno", "entities": [[8, 14, "TARGET"], [23, 28, "AVOID"]]}
+{"text": "pulisci cucina a parte bagno", "entities": [[8, 14, "TARGET"], [23, 28, "AVOID"]]}
+{"text": "vai in cucina, non in bagno", "entities": [[7, 13, "TARGET"], [22, 27, "AVOID"]]}
+{"text": "raggiungi il soggiorno, ma non il bagno", "entities": [[13, 22, "TARGET"], [34, 39, "AVOID"]]}
+{"text": "spolvera cucina e soggiorno, ma non bagno", "entities": [[9, 15, "TARGET"], [18, 27, "TARGET"], [36, 41, "AVOID"]]}
+{"text": "dai una sistemata alla camera senza entrare in bagno", "entities": [[23, 29, "TARGET"], [47, 52, "AVOID"]]}
+{"text": "fai una pulita in salone, manco in cucina", "entities": [[18, 24, "TARGET"], [35, 41, "AVOID"]]}
+{"text": "vai in cucina né bagno né salone", "entities": [[7, 13, "TARGET"], [17, 22, "AVOID"], [26, 32, "AVOID"]]}
+{"text": "pulisci bagno però evita cucina, salone e corridoio", "entities": [[8, 13, "TARGET"], [25, 31, "AVOID"], [33, 39, "AVOID"], [42, 51, "AVOID"]]}
+{"text": "sistema il soggiorno, non andare in bagno e non entrare in cucina", "entities": [[11, 20, "TARGET"], [36, 41, "AVOID"], [59, 65, "AVOID"]]}
+{"text": "ripulisci camera ospiti evitando zona divano", "entities": [[10, 23, "TARGET"], [33, 44, "AVOID"]]}
+{"text": "pulisci sala da pranzo senza passare dal corridoio", "entities": [[8, 22, "TARGET"], [41, 50, "AVOID"]]}
+{"text": "pulisci bagno, evitando cucina e salone, e pulisci soggiorno anche", "entities": [[8, 13, "TARGET"], [24, 30, "AVOID"], [33, 39, "AVOID"], [51, 60, "TARGET"]]}
+{"text": "pulisci cucina ma evita bagno e poi sistema soggiorno", "entities": [[8, 14, "TARGET"], [24, 29, "AVOID"], [44, 53, "TARGET"]]}
+{"text": "pulisci bagno evitando cucina e salone e poi pulisci soggiorno", "entities": [[8, 13, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"], [53, 62, "TARGET"]]}
+{"text": "spolvera camera evitando salone e ripulisci ingresso", "entities": [[9, 15, "TARGET"], [25, 31, "AVOID"], [44, 52, "TARGET"]]}
+{"text": "pulisci bagno e cucina, evita salone, poi pulisci camera", "entities": [[8, 13, "TARGET"], [16, 22, "TARGET"], [30, 36, "AVOID"], [50, 56, "TARGET"]]}
+{"text": "vai in cucina evitando bagno e poi raggiungi soggiorno", "entities": [[7, 13, "TARGET"], [23, 28, "AVOID"], [45, 54, "TARGET"]]}
+{"text": "pulisci sala da pranzo evitando bagno", "entities": [[8, 22, "TARGET"], [32, 37, "AVOID"]]}
+{"text": "pulisci zona divano e sala da pranzo", "entities": [[8, 19, "TARGET"], [22, 36, "TARGET"]]}
+{"text": "evita camera ospiti e pulisci cucina", "entities": [[6, 19, "AVOID"], [30, 36, "TARGET"]]}
+{"text": "pulisci camera ospiti e zona divano ma evita corridoio", "entities": [[8, 21, "TARGET"], [24, 35, "TARGET"], [45, 54, "AVOID"]]}
+{"text": "spolvera cucina, bagno, salone", "entities": [[9, 15, "TARGET"], [17, 22, "TARGET"], [24, 30, "TARGET"]]}
+{"text": "ripulisci camera ospiti e bagno ma evita salone", "entities": [[10, 23, "TARGET"], [26, 31, "TARGET"], [41, 47, "AVOID"]]}
+{"text": "evita cucina e bagno, vai in salone", "entities": [[6, 12, "AVOID"], [15, 20, "AVOID"], [29, 35, "TARGET"]]}
+{"text": "a parte il bagno pulisci la cucina", "entities": [[11, 16, "AVOID"], [28, 34, "TARGET"]]}
+{"text": "tranne camera e bagno, pulisci il soggiorno", "entities": [[7, 13, "AVOID"], [16, 21, "AVOID"], [34, 43, "TARGET"]]}
+{"text": "pulisci il ripostiglio, però evita cucina e corridoio", "entities": [[11, 22, "TARGET"], [35, 41, "AVOID"], [44, 53, "AVOID"]]}
+{"text": "vai al salone, evita camera ospiti e zona divano", "entities": [[7, 13, "TARGET"], [21, 34, "AVOID"], [37, 48, "AVOID"]]}
 {"text": "pulisci la cucina", "entities": [[11, 17, "TARGET"]]}
 {"text": "pulisci il bagno", "entities": [[11, 16, "TARGET"]]}
-{"text": "pulisci l'ingresso", "entities": [[10, 18, "TARGET"]]}
 {"text": "pulisci il salone", "entities": [[11, 17, "TARGET"]]}
 {"text": "pulisci il soggiorno", "entities": [[11, 20, "TARGET"]]}
 {"text": "pulisci il corridoio", "entities": [[11, 20, "TARGET"]]}
 {"text": "pulisci la camera", "entities": [[11, 17, "TARGET"]]}
 {"text": "pulisci il ripostiglio", "entities": [[11, 22, "TARGET"]]}
+{"text": "pulisci il ingresso", "entities": [[11, 19, "TARGET"]]}
 {"text": "pulisci la sala da pranzo", "entities": [[11, 25, "TARGET"]]}
 {"text": "pulisci la zona divano", "entities": [[11, 22, "TARGET"]]}
-{"text": "pulisci la camera ospiti", "entities": [[11, 24, "TARGET"]]}
-{"text": "pulisci il bagno e l'ingresso", "entities": [[11, 16, "TARGET"], [21, 29, "TARGET"]]}
-{"text": "pulisci cucina, bagno e soggiorno", "entities": [[8, 14, "TARGET"], [16, 21, "TARGET"], [24, 33, "TARGET"]]}
-{"text": "pulisci camera e corridoio", "entities": [[8, 14, "TARGET"], [17, 26, "TARGET"]]}
-{"text": "pulisci salone e ripostiglio", "entities": [[8, 14, "TARGET"], [17, 28, "TARGET"]]}
+{"text": "pulisci camera ospiti", "entities": [[8, 21, "TARGET"]]}
+{"text": "spolvera la cucina", "entities": [[12, 18, "TARGET"]]}
+{"text": "spolvera il bagno", "entities": [[12, 17, "TARGET"]]}
+{"text": "spolvera il salone", "entities": [[12, 18, "TARGET"]]}
+{"text": "spolvera il soggiorno", "entities": [[12, 21, "TARGET"]]}
+{"text": "spolvera il corridoio", "entities": [[12, 21, "TARGET"]]}
+{"text": "spolvera la camera", "entities": [[12, 18, "TARGET"]]}
+{"text": "spolvera il ripostiglio", "entities": [[12, 23, "TARGET"]]}
+{"text": "spolvera il ingresso", "entities": [[12, 20, "TARGET"]]}
+{"text": "spolvera la sala da pranzo", "entities": [[12, 26, "TARGET"]]}
+{"text": "spolvera la zona divano", "entities": [[12, 23, "TARGET"]]}
+{"text": "spolvera camera ospiti", "entities": [[9, 22, "TARGET"]]}
+{"text": "sistema la cucina", "entities": [[11, 17, "TARGET"]]}
+{"text": "sistema il bagno", "entities": [[11, 16, "TARGET"]]}
+{"text": "sistema il salone", "entities": [[11, 17, "TARGET"]]}
+{"text": "sistema il soggiorno", "entities": [[11, 20, "TARGET"]]}
+{"text": "sistema il corridoio", "entities": [[11, 20, "TARGET"]]}
+{"text": "sistema la camera", "entities": [[11, 17, "TARGET"]]}
+{"text": "sistema il ripostiglio", "entities": [[11, 22, "TARGET"]]}
+{"text": "sistema il ingresso", "entities": [[11, 19, "TARGET"]]}
+{"text": "sistema la sala da pranzo", "entities": [[11, 25, "TARGET"]]}
+{"text": "sistema la zona divano", "entities": [[11, 22, "TARGET"]]}
+{"text": "sistema camera ospiti", "entities": [[8, 21, "TARGET"]]}
+{"text": "ripulisci la cucina", "entities": [[13, 19, "TARGET"]]}
+{"text": "ripulisci il bagno", "entities": [[13, 18, "TARGET"]]}
+{"text": "ripulisci il salone", "entities": [[13, 19, "TARGET"]]}
+{"text": "ripulisci il soggiorno", "entities": [[13, 22, "TARGET"]]}
+{"text": "ripulisci il corridoio", "entities": [[13, 22, "TARGET"]]}
+{"text": "ripulisci la camera", "entities": [[13, 19, "TARGET"]]}
+{"text": "ripulisci il ripostiglio", "entities": [[13, 24, "TARGET"]]}
+{"text": "ripulisci il ingresso", "entities": [[13, 21, "TARGET"]]}
+{"text": "ripulisci la sala da pranzo", "entities": [[13, 27, "TARGET"]]}
+{"text": "ripulisci la zona divano", "entities": [[13, 24, "TARGET"]]}
+{"text": "ripulisci camera ospiti", "entities": [[10, 23, "TARGET"]]}
+{"text": "dai una passata in cucina", "entities": [[19, 25, "TARGET"]]}
+{"text": "fai una pulita in cucina", "entities": [[18, 24, "TARGET"]]}
+{"text": "dai una sistemata alla cucina", "entities": [[23, 29, "TARGET"]]}
+{"text": "pulisci bene la cucina", "entities": [[16, 22, "TARGET"]]}
+{"text": "dai una passata in bagno", "entities": [[19, 24, "TARGET"]]}
+{"text": "fai una pulita in bagno", "entities": [[18, 23, "TARGET"]]}
+{"text": "dai una sistemata al bagno", "entities": [[21, 26, "TARGET"]]}
+{"text": "pulisci bene il bagno", "entities": [[16, 21, "TARGET"]]}
+{"text": "dai una passata in salone", "entities": [[19, 25, "TARGET"]]}
+{"text": "fai una pulita in salone", "entities": [[18, 24, "TARGET"]]}
+{"text": "dai una sistemata al salone", "entities": [[21, 27, "TARGET"]]}
+{"text": "pulisci bene il salone", "entities": [[16, 22, "TARGET"]]}
+{"text": "dai una passata in soggiorno", "entities": [[19, 28, "TARGET"]]}
+{"text": "fai una pulita in soggiorno", "entities": [[18, 27, "TARGET"]]}
+{"text": "dai una sistemata al soggiorno", "entities": [[21, 30, "TARGET"]]}
+{"text": "pulisci bene il soggiorno", "entities": [[16, 25, "TARGET"]]}
+{"text": "dai una passata in corridoio", "entities": [[19, 28, "TARGET"]]}
+{"text": "fai una pulita in corridoio", "entities": [[18, 27, "TARGET"]]}
+{"text": "dai una sistemata al corridoio", "entities": [[21, 30, "TARGET"]]}
+{"text": "pulisci bene il corridoio", "entities": [[16, 25, "TARGET"]]}
+{"text": "dai una passata in camera", "entities": [[19, 25, "TARGET"]]}
+{"text": "fai una pulita in camera", "entities": [[18, 24, "TARGET"]]}
+{"text": "dai una sistemata alla camera", "entities": [[23, 29, "TARGET"]]}
+{"text": "pulisci bene la camera", "entities": [[16, 22, "TARGET"]]}
+{"text": "dai una passata in sala da pranzo", "entities": [[19, 33, "TARGET"]]}
+{"text": "fai una pulita in sala da pranzo", "entities": [[18, 32, "TARGET"]]}
+{"text": "dai una sistemata alla sala da pranzo", "entities": [[23, 37, "TARGET"]]}
+{"text": "pulisci bene la sala da pranzo", "entities": [[16, 30, "TARGET"]]}
+{"text": "dai una passata in zona divano", "entities": [[19, 30, "TARGET"]]}
+{"text": "fai una pulita in zona divano", "entities": [[18, 29, "TARGET"]]}
+{"text": "dai una sistemata alla zona divano", "entities": [[23, 34, "TARGET"]]}
+{"text": "pulisci bene la zona divano", "entities": [[16, 27, "TARGET"]]}
+{"text": "dai una passata in camera ospiti", "entities": [[19, 32, "TARGET"]]}
+{"text": "fai una pulita in camera ospiti", "entities": [[18, 31, "TARGET"]]}
+{"text": "dai una sistemata al camera ospiti", "entities": [[21, 34, "TARGET"]]}
+{"text": "pulisci bene il camera ospiti", "entities": [[16, 29, "TARGET"]]}
+{"text": "pulisci cucina, bagno, salone", "entities": [[8, 14, "TARGET"], [16, 21, "TARGET"], [23, 29, "TARGET"]]}
+{"text": "spolvera cucina, bagno e soggiorno", "entities": [[9, 15, "TARGET"], [17, 22, "TARGET"], [25, 34, "TARGET"]]}
+{"text": "sistema camera, ingresso e ripostiglio", "entities": [[8, 14, "TARGET"], [16, 24, "TARGET"], [27, 38, "TARGET"]]}
+{"text": "ripulisci bagno, cucina, salone e corridoio", "entities": [[10, 15, "TARGET"], [17, 23, "TARGET"], [25, 31, "TARGET"], [34, 43, "TARGET"]]}
 {"text": "pulisci sala da pranzo e zona divano", "entities": [[8, 22, "TARGET"], [25, 36, "TARGET"]]}
-{"text": "pulisci camera ospiti e bagno", "entities": [[8, 21, "TARGET"], [24, 29, "TARGET"]]}
-{"text": "pulisci cucina, ingresso, salone", "entities": [[8, 14, "TARGET"], [16, 24, "TARGET"], [26, 32, "TARGET"]]}
-{"text": "pulisci il bagno e l'ingresso, ma evita la cucina", "entities": [[11, 16, "TARGET"], [21, 29, "TARGET"], [43, 49, "AVOID"]]}
-{"text": "pulisci la cucina evitando il bagno", "entities": [[11, 17, "TARGET"], [30, 35, "AVOID"]]}
-{"text": "pulisci la cucina evitando il bagno e il corridoio", "entities": [[11, 17, "TARGET"], [30, 35, "AVOID"], [41, 50, "AVOID"]]}
-{"text": "pulisci il soggiorno ma evita il ripostiglio", "entities": [[11, 20, "TARGET"], [33, 44, "AVOID"]]}
-{"text": "pulisci la camera però evita il salone", "entities": [[11, 17, "TARGET"], [32, 38, "AVOID"]]}
-{"text": "pulisci la sala da pranzo senza passare dal bagno", "entities": [[11, 25, "TARGET"], [44, 49, "AVOID"]]}
-{"text": "pulisci la zona divano evitando la cucina", "entities": [[11, 22, "TARGET"], [35, 41, "AVOID"]]}
-{"text": "pulisci camera ospiti, ma evita il corridoio", "entities": [[8, 21, "TARGET"], [35, 44, "AVOID"]]}
-{"text": "pulisci cucina e bagno ma evita ingresso", "entities": [[8, 14, "TARGET"], [17, 22, "TARGET"], [32, 40, "AVOID"]]}
-{"text": "pulisci il salone escludi la camera", "entities": [[11, 17, "TARGET"], [29, 35, "AVOID"]]}
-{"text": "pulisci il ripostiglio e tieniti lontano dal bagno", "entities": [[11, 22, "TARGET"], [45, 50, "AVOID"]]}
-{"text": "pulisci la sala da pranzo passando per il corridoio", "entities": [[11, 25, "TARGET"], [42, 51, "VIA"]]}
-{"text": "pulisci la cucina passando dal salone", "entities": [[11, 17, "TARGET"], [31, 37, "VIA"]]}
-{"text": "pulisci il bagno attraverso il corridoio", "entities": [[11, 16, "TARGET"], [31, 40, "VIA"]]}
-{"text": "pulisci l'ingresso passando per il soggiorno", "entities": [[10, 18, "TARGET"], [35, 44, "VIA"]]}
-{"text": "pulisci camera ospiti passando dalla sala da pranzo", "entities": [[8, 21, "TARGET"], [37, 51, "VIA"]]}
-{"text": "pulisci zona divano passando attraverso il salone", "entities": [[8, 19, "TARGET"], [43, 49, "VIA"]]}
-{"text": "pulisci il ripostiglio attraversando il corridoio", "entities": [[11, 22, "TARGET"], [40, 49, "VIA"]]}
-{"text": "pulisci la cucina passando dal salone ma evita il bagno", "entities": [[11, 17, "TARGET"], [31, 37, "VIA"], [50, 55, "AVOID"]]}
-{"text": "pulisci il soggiorno passando dal corridoio ma evita la cucina", "entities": [[11, 20, "TARGET"], [34, 43, "VIA"], [56, 62, "AVOID"]]}
-{"text": "pulisci la sala da pranzo passando dall ingresso evitando il bagno", "entities": [[11, 25, "TARGET"], [40, 48, "VIA"], [61, 66, "AVOID"]]}
-{"text": "pulisci camera ospiti passando per il corridoio ma evita il salone", "entities": [[8, 21, "TARGET"], [38, 47, "VIA"], [60, 66, "AVOID"]]}
-{"text": "pulisci cucina e soggiorno passando dal corridoio evitando il bagno", "entities": [[8, 14, "TARGET"], [17, 26, "TARGET"], [40, 49, "VIA"], [62, 67, "AVOID"]]}
-{"text": "pulisci bagno, ingresso e salone evitando la camera", "entities": [[8, 13, "TARGET"], [15, 23, "TARGET"], [26, 32, "TARGET"], [45, 51, "AVOID"]]}
-{"text": "pulisci sala da pranzo e cucina passando per ingresso", "entities": [[8, 22, "TARGET"], [25, 31, "TARGET"], [45, 53, "VIA"]]}
-{"text": "pulisci zona divano e salone evitando il corridoio", "entities": [[8, 19, "TARGET"], [22, 28, "TARGET"], [41, 50, "AVOID"]]}
-{"text": "vai in camera", "entities": [[7, 13, "TARGET"]]}
-{"text": "vai in cucina", "entities": [[7, 13, "TARGET"]]}
-{"text": "vai nel bagno", "entities": [[8, 13, "TARGET"]]}
-{"text": "vai al salone", "entities": [[7, 13, "TARGET"]]}
-{"text": "raggiungi il soggiorno", "entities": [[13, 22, "TARGET"]]}
-{"text": "vai all'ingresso", "entities": [[8, 16, "TARGET"]]}
-{"text": "raggiungi il ripostiglio", "entities": [[13, 24, "TARGET"]]}
-{"text": "vai nella sala da pranzo", "entities": [[10, 24, "TARGET"]]}
-{"text": "vai in zona divano", "entities": [[7, 18, "TARGET"]]}
-{"text": "raggiungi camera ospiti", "entities": [[10, 23, "TARGET"]]}
-{"text": "vai in cucina passando per il corridoio", "entities": [[7, 13, "TARGET"], [30, 39, "VIA"]]}
-{"text": "vai in camera passando per il corridoio", "entities": [[7, 13, "TARGET"], [30, 39, "VIA"]]}
-{"text": "vai nella sala da pranzo passando dall ingresso", "entities": [[10, 24, "TARGET"], [39, 47, "VIA"]]}
-{"text": "raggiungi il bagno passando dal salone", "entities": [[13, 18, "TARGET"], [32, 38, "VIA"]]}
-{"text": "vai in soggiorno attraverso il corridoio", "entities": [[7, 16, "TARGET"], [31, 40, "VIA"]]}
-{"text": "vai in camera ospiti passando per la sala da pranzo", "entities": [[7, 20, "TARGET"], [37, 51, "VIA"]]}
-{"text": "vai in zona divano attraversando il salone", "entities": [[7, 18, "TARGET"], [36, 42, "VIA"]]}
-{"text": "raggiungi il soggiorno evitando il bagno", "entities": [[13, 22, "TARGET"], [35, 40, "AVOID"]]}
-{"text": "vai nella sala da pranzo evitando il bagno", "entities": [[10, 24, "TARGET"], [37, 42, "AVOID"]]}
-{"text": "vai in cucina ma evita il corridoio", "entities": [[7, 13, "TARGET"], [26, 35, "AVOID"]]}
-{"text": "raggiungi la camera però evita il salone", "entities": [[13, 19, "TARGET"], [34, 40, "AVOID"]]}
-{"text": "vai all'ingresso senza passare dal bagno", "entities": [[8, 16, "TARGET"], [35, 40, "AVOID"]]}
-{"text": "vai in ripostiglio evitando la cucina", "entities": [[7, 18, "TARGET"], [31, 37, "AVOID"]]}
-{"text": "vai in camera ospiti ma evita la zona divano", "entities": [[7, 20, "TARGET"], [33, 44, "AVOID"]]}
-{"text": "vai in cucina passando dal salone ma evita il bagno", "entities": [[7, 13, "TARGET"], [27, 33, "VIA"], [46, 51, "AVOID"]]}
-{"text": "vai in camera passando per il corridoio evitando il salone", "entities": [[7, 13, "TARGET"], [30, 39, "VIA"], [52, 58, "AVOID"]]}
-{"text": "raggiungi sala da pranzo passando da ingresso ma evita cucina", "entities": [[10, 24, "TARGET"], [37, 45, "VIA"], [55, 61, "AVOID"]]}
-{"text": "vai in zona divano passando dal soggiorno evitando il bagno", "entities": [[7, 18, "TARGET"], [32, 41, "VIA"], [54, 59, "AVOID"]]}
-{"text": "raggiungi camera ospiti passando per il corridoio ma evita ripostiglio", "entities": [[10, 23, "TARGET"], [40, 49, "VIA"], [59, 70, "AVOID"]]}
-{"text": "vai in bagno, poi in cucina", "entities": [[7, 12, "TARGET"], [21, 27, "TARGET"]]}
-{"text": "raggiungi ingresso e salone", "entities": [[10, 18, "TARGET"], [21, 27, "TARGET"]]}
-{"text": "vai in soggiorno, camera e bagno", "entities": [[7, 16, "TARGET"], [18, 24, "TARGET"], [27, 32, "TARGET"]]}
-{"text": "porta il robot in sala da pranzo e zona divano", "entities": [[18, 32, "TARGET"], [35, 46, "TARGET"]]}
-{"text": "raggiungi cucina e ingresso evitando il corridoio", "entities": [[10, 16, "TARGET"], [19, 27, "TARGET"], [40, 49, "AVOID"]]}
-{"text": "vai in salone e soggiorno passando per corridoio", "entities": [[7, 13, "TARGET"], [16, 25, "TARGET"], [39, 48, "VIA"]]}
-{"text": "pulisci il bagno, poi la cucina, però evita il ripostiglio", "entities": [[11, 16, "TARGET"], [25, 31, "TARGET"], [47, 58, "AVOID"]]}
-{"text": "pulisci ingresso e camera passando dal corridoio", "entities": [[8, 16, "TARGET"], [19, 25, "TARGET"], [39, 48, "VIA"]]}
-{"text": "pulisci soggiorno, zona divano e salone passando per ingresso", "entities": [[8, 17, "TARGET"], [19, 30, "TARGET"], [33, 39, "TARGET"], [53, 61, "VIA"]]}
-{"text": "vai in ripostiglio passando per cucina ma evita bagno e salone", "entities": [[7, 18, "TARGET"], [32, 38, "VIA"], [48, 53, "AVOID"], [56, 62, "AVOID"]]}
+{"text": "pulisci camera ospiti, bagno e cucina", "entities": [[8, 21, "TARGET"], [23, 28, "TARGET"], [31, 37, "TARGET"]]}
+{"text": "spolvera salone, soggiorno e corridoio", "entities": [[9, 15, "TARGET"], [17, 26, "TARGET"], [29, 38, "TARGET"]]}
+{"text": "sistema cucina e ingresso", "entities": [[8, 14, "TARGET"], [17, 25, "TARGET"]]}
+{"text": "ripulisci camera e ripostiglio", "entities": [[10, 16, "TARGET"], [19, 30, "TARGET"]]}
+{"text": "pulisci cucina ma evita bagno e salone", "entities": [[8, 14, "TARGET"], [24, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci bagno ma evita cucina e salone", "entities": [[8, 13, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci camera ma evita salone e cucina", "entities": [[8, 14, "TARGET"], [24, 30, "AVOID"], [33, 39, "AVOID"]]}
+{"text": "pulisci soggiorno ma evita bagno e cucina", "entities": [[8, 17, "TARGET"], [27, 32, "AVOID"], [35, 41, "AVOID"]]}
+{"text": "pulisci sala da pranzo ma evita bagno e corridoio", "entities": [[8, 22, "TARGET"], [32, 37, "AVOID"], [40, 49, "AVOID"]]}
+{"text": "pulisci camera ospiti ma evita zona divano e bagno", "entities": [[8, 21, "TARGET"], [31, 42, "AVOID"], [45, 50, "AVOID"]]}
+{"text": "pulisci cucina evitando bagno e salone", "entities": [[8, 14, "TARGET"], [24, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci bagno evitando cucina e salone", "entities": [[8, 13, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci camera evitando salone e cucina", "entities": [[8, 14, "TARGET"], [24, 30, "AVOID"], [33, 39, "AVOID"]]}
+{"text": "pulisci soggiorno evitando bagno e cucina", "entities": [[8, 17, "TARGET"], [27, 32, "AVOID"], [35, 41, "AVOID"]]}
+{"text": "pulisci sala da pranzo evitando bagno e corridoio", "entities": [[8, 22, "TARGET"], [32, 37, "AVOID"], [40, 49, "AVOID"]]}
+{"text": "pulisci camera ospiti evitando zona divano e bagno", "entities": [[8, 21, "TARGET"], [31, 42, "AVOID"], [45, 50, "AVOID"]]}
+{"text": "pulisci cucina però evita bagno, salone e corridoio", "entities": [[8, 14, "TARGET"], [26, 31, "AVOID"], [33, 39, "AVOID"], [42, 51, "AVOID"]]}
+{"text": "pulisci camera però evita salone, cucina e bagno", "entities": [[8, 14, "TARGET"], [26, 32, "AVOID"], [34, 40, "AVOID"], [43, 48, "AVOID"]]}
+{"text": "pulisci soggiorno però evita bagno, cucina e salone", "entities": [[8, 17, "TARGET"], [29, 34, "AVOID"], [36, 42, "AVOID"], [45, 51, "AVOID"]]}
+{"text": "pulisci sala da pranzo però evita bagno, corridoio e salone", "entities": [[8, 22, "TARGET"], [34, 39, "AVOID"], [41, 50, "AVOID"], [53, 59, "AVOID"]]}
+{"text": "pulisci camera ospiti però evita zona divano, bagno e cucina", "entities": [[8, 21, "TARGET"], [33, 44, "AVOID"], [46, 51, "AVOID"], [54, 60, "AVOID"]]}
+{"text": "vai in cucina ma evita bagno e salone", "entities": [[7, 13, "TARGET"], [23, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "vai in bagno ma evita cucina e salone", "entities": [[7, 12, "TARGET"], [22, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "vai in camera ma evita salone e cucina", "entities": [[7, 13, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "vai in soggiorno ma evita bagno e cucina", "entities": [[7, 16, "TARGET"], [26, 31, "AVOID"], [34, 40, "AVOID"]]}
+{"text": "vai in sala da pranzo ma evita bagno e corridoio", "entities": [[7, 21, "TARGET"], [31, 36, "AVOID"], [39, 48, "AVOID"]]}
+{"text": "vai in camera ospiti ma evita zona divano e bagno", "entities": [[7, 20, "TARGET"], [30, 41, "AVOID"], [44, 49, "AVOID"]]}
+{"text": "raggiungi cucina evitando bagno, salone e corridoio", "entities": [[10, 16, "TARGET"], [26, 31, "AVOID"], [33, 39, "AVOID"], [42, 51, "AVOID"]]}
+{"text": "raggiungi bagno evitando cucina, salone e corridoio", "entities": [[10, 15, "TARGET"], [25, 31, "AVOID"], [33, 39, "AVOID"], [42, 51, "AVOID"]]}
+{"text": "raggiungi camera evitando salone, cucina e bagno", "entities": [[10, 16, "TARGET"], [26, 32, "AVOID"], [34, 40, "AVOID"], [43, 48, "AVOID"]]}
+{"text": "raggiungi soggiorno evitando bagno, cucina e salone", "entities": [[10, 19, "TARGET"], [29, 34, "AVOID"], [36, 42, "AVOID"], [45, 51, "AVOID"]]}
+{"text": "raggiungi sala da pranzo evitando bagno, corridoio e salone", "entities": [[10, 24, "TARGET"], [34, 39, "AVOID"], [41, 50, "AVOID"], [53, 59, "AVOID"]]}
+{"text": "raggiungi camera ospiti evitando zona divano, bagno e cucina", "entities": [[10, 23, "TARGET"], [33, 44, "AVOID"], [46, 51, "AVOID"], [54, 60, "AVOID"]]}
+{"text": "pulisci cucina tranne bagno e salone", "entities": [[8, 14, "TARGET"], [22, 27, "AVOID"], [30, 36, "AVOID"]]}
+{"text": "pulisci bagno tranne cucina e salone", "entities": [[8, 13, "TARGET"], [21, 27, "AVOID"], [30, 36, "AVOID"]]}
+{"text": "pulisci camera tranne salone e cucina", "entities": [[8, 14, "TARGET"], [22, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "pulisci soggiorno tranne bagno e cucina", "entities": [[8, 17, "TARGET"], [25, 30, "AVOID"], [33, 39, "AVOID"]]}
+{"text": "pulisci sala da pranzo tranne bagno e corridoio", "entities": [[8, 22, "TARGET"], [30, 35, "AVOID"], [38, 47, "AVOID"]]}
+{"text": "pulisci camera ospiti tranne zona divano e bagno", "entities": [[8, 21, "TARGET"], [29, 40, "AVOID"], [43, 48, "AVOID"]]}
+{"text": "pulisci cucina esclusi bagno e salone", "entities": [[8, 14, "TARGET"], [23, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "pulisci bagno esclusi cucina e salone", "entities": [[8, 13, "TARGET"], [22, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "pulisci camera esclusi salone e cucina", "entities": [[8, 14, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci soggiorno esclusi bagno e cucina", "entities": [[8, 17, "TARGET"], [26, 31, "AVOID"], [34, 40, "AVOID"]]}
+{"text": "pulisci sala da pranzo esclusi bagno e corridoio", "entities": [[8, 22, "TARGET"], [31, 36, "AVOID"], [39, 48, "AVOID"]]}
+{"text": "pulisci camera ospiti esclusi zona divano e bagno", "entities": [[8, 21, "TARGET"], [30, 41, "AVOID"], [44, 49, "AVOID"]]}
+{"text": "pulisci cucina a parte bagno e salone", "entities": [[8, 14, "TARGET"], [23, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "pulisci bagno a parte cucina e salone", "entities": [[8, 13, "TARGET"], [22, 28, "AVOID"], [31, 37, "AVOID"]]}
+{"text": "pulisci camera a parte salone e cucina", "entities": [[8, 14, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"]]}
+{"text": "pulisci soggiorno a parte bagno e cucina", "entities": [[8, 17, "TARGET"], [26, 31, "AVOID"], [34, 40, "AVOID"]]}
+{"text": "pulisci sala da pranzo a parte bagno e corridoio", "entities": [[8, 22, "TARGET"], [31, 36, "AVOID"], [39, 48, "AVOID"]]}
+{"text": "pulisci camera ospiti a parte zona divano e bagno", "entities": [[8, 21, "TARGET"], [30, 41, "AVOID"], [44, 49, "AVOID"]]}
+{"text": "pulisci cucina ma non andare in bagno e salone", "entities": [[8, 14, "TARGET"], [32, 37, "AVOID"], [40, 46, "AVOID"]]}
+{"text": "pulisci bagno ma non andare in cucina e salone", "entities": [[8, 13, "TARGET"], [31, 37, "AVOID"], [40, 46, "AVOID"]]}
+{"text": "pulisci camera ma non andare in salone e cucina", "entities": [[8, 14, "TARGET"], [32, 38, "AVOID"], [41, 47, "AVOID"]]}
+{"text": "pulisci soggiorno ma non andare in bagno e cucina", "entities": [[8, 17, "TARGET"], [35, 40, "AVOID"], [43, 49, "AVOID"]]}
+{"text": "pulisci sala da pranzo ma non andare in bagno e corridoio", "entities": [[8, 22, "TARGET"], [40, 45, "AVOID"], [48, 57, "AVOID"]]}
+{"text": "pulisci camera ospiti ma non andare in zona divano e bagno", "entities": [[8, 21, "TARGET"], [39, 50, "AVOID"], [53, 58, "AVOID"]]}
+{"text": "pulisci cucina ma non entrare in bagno e salone", "entities": [[8, 14, "TARGET"], [33, 38, "AVOID"], [41, 47, "AVOID"]]}
+{"text": "pulisci bagno ma non entrare in cucina e salone", "entities": [[8, 13, "TARGET"], [32, 38, "AVOID"], [41, 47, "AVOID"]]}
+{"text": "pulisci camera ma non entrare in salone e cucina", "entities": [[8, 14, "TARGET"], [33, 39, "AVOID"], [42, 48, "AVOID"]]}
+{"text": "pulisci soggiorno ma non entrare in bagno e cucina", "entities": [[8, 17, "TARGET"], [36, 41, "AVOID"], [44, 50, "AVOID"]]}
+{"text": "pulisci sala da pranzo ma non entrare in bagno e corridoio", "entities": [[8, 22, "TARGET"], [41, 46, "AVOID"], [49, 58, "AVOID"]]}
+{"text": "pulisci camera ospiti ma non entrare in zona divano e bagno", "entities": [[8, 21, "TARGET"], [40, 51, "AVOID"], [54, 59, "AVOID"]]}
+{"text": "vai in cucina, né in bagno né in salone", "entities": [[7, 13, "TARGET"], [21, 26, "AVOID"], [33, 39, "AVOID"]]}
+{"text": "vai in bagno, né in cucina né in salone", "entities": [[7, 12, "TARGET"], [20, 26, "AVOID"], [33, 39, "AVOID"]]}
+{"text": "vai in camera, né in salone né in cucina", "entities": [[7, 13, "TARGET"], [21, 27, "AVOID"], [34, 40, "AVOID"]]}
+{"text": "vai in soggiorno, né in bagno né in cucina", "entities": [[7, 16, "TARGET"], [24, 29, "AVOID"], [36, 42, "AVOID"]]}
+{"text": "vai in sala da pranzo, né in bagno né in corridoio", "entities": [[7, 21, "TARGET"], [29, 34, "AVOID"], [41, 50, "AVOID"]]}
+{"text": "vai in camera ospiti, né in zona divano né in bagno", "entities": [[7, 20, "TARGET"], [28, 39, "AVOID"], [46, 51, "AVOID"]]}
+{"text": "evita bagno e salone e pulisci cucina", "entities": [[6, 11, "AVOID"], [14, 20, "AVOID"], [31, 37, "TARGET"]]}
+{"text": "non andare in bagno e non entrare in salone, pulisci cucina", "entities": [[14, 19, "AVOID"], [37, 43, "AVOID"], [53, 59, "TARGET"]]}
+{"text": "a parte bagno e salone pulisci cucina e soggiorno", "entities": [[8, 13, "AVOID"], [16, 22, "AVOID"], [31, 37, "TARGET"], [40, 49, "TARGET"]]}
+{"text": "tranne cucina e corridoio, pulisci bagno e camera", "entities": [[7, 13, "AVOID"], [16, 25, "AVOID"], [35, 40, "TARGET"], [43, 49, "TARGET"]]}
+{"text": "pulisci bagno, evitando cucina e salone, poi sistema soggiorno", "entities": [[8, 13, "TARGET"], [24, 30, "AVOID"], [33, 39, "AVOID"], [53, 62, "TARGET"]]}
+{"text": "sistema camera, evita bagno, poi spolvera ingresso", "entities": [[8, 14, "TARGET"], [22, 27, "AVOID"], [42, 50, "TARGET"]]}
+{"text": "ripulisci cucina, evita salone e corridoio, poi pulisci bagno", "entities": [[10, 16, "TARGET"], [24, 30, "AVOID"], [33, 42, "AVOID"], [56, 61, "TARGET"]]}
+{"text": "vai in cucina, evita bagno, poi raggiungi soggiorno", "entities": [[7, 13, "TARGET"], [21, 26, "AVOID"], [42, 51, "TARGET"]]}
+{"text": "spolvera zona divano, evita camera ospiti e ripulisci sala da pranzo", "entities": [[9, 20, "TARGET"], [28, 41, "AVOID"], [54, 68, "TARGET"]]}
+{"text": "pulisci sala da pranzo, escluso zona divano, e sistema cucina", "entities": [[8, 22, "TARGET"], [32, 43, "AVOID"], [55, 61, "TARGET"]]}
+{"text": "pulisci tutto tranne cucina e bagno", "entities": [[21, 27, "AVOID"], [30, 35, "AVOID"]]}
+{"text": "pulisci la casa tranne salone e corridoio", "entities": [[23, 29, "AVOID"], [32, 41, "AVOID"]]}
+{"text": "pulisci tutto escluso ripostiglio", "entities": [[22, 33, "AVOID"]]}
+{"text": "pulisci casa a parte bagno", "entities": [[21, 26, "AVOID"]]}
+{"text": "pulisci cucina e bagno però evita soggiorno e camera", "entities": [[8, 14, "TARGET"], [17, 22, "TARGET"], [34, 43, "AVOID"], [46, 52, "AVOID"]]}
+{"text": "pulisci cucina e bagno, evita soggiorno e camera", "entities": [[8, 14, "TARGET"], [17, 22, "TARGET"], [30, 39, "AVOID"], [42, 48, "AVOID"]]}
+{"text": "pulisci bagno, evita cucina, salone e corridoio", "entities": [[8, 13, "TARGET"], [21, 27, "AVOID"], [29, 35, "AVOID"], [38, 47, "AVOID"]]}
+{"text": "pulisci bagno ma evita cucina salone e corridoio", "entities": [[8, 13, "TARGET"], [23, 29, "AVOID"], [30, 36, "AVOID"], [39, 48, "AVOID"]]}
+{"text": "pulisci cucina, a parte bagno", "entities": [[8, 14, "TARGET"], [24, 29, "AVOID"]]}
+{"text": "a parte bagno pulisci cucina", "entities": [[8, 13, "AVOID"], [22, 28, "TARGET"]]}
+{"text": "pulisci tutto tranne bagno", "entities": [[21, 26, "AVOID"]]}
+{"text": "pulisci casa tranne bagno", "entities": [[20, 25, "AVOID"]]}
+{"text": "tranne camera bagno pulisci soggiorno", "entities": [[7, 13, "AVOID"], [14, 19, "AVOID"], [28, 37, "TARGET"]]}
+{"text": "pulisci ripostiglio ma evita cucina e corridoio", "entities": [[8, 19, "TARGET"], [29, 35, "AVOID"], [38, 47, "AVOID"]]}
+{"text": "vai salone ma evita camera ospiti e zona divano", "entities": [[4, 10, "TARGET"], [20, 33, "AVOID"], [36, 47, "AVOID"]]}
+{"text": "evita cucina e bagno poi vai in salone", "entities": [[6, 12, "AVOID"], [15, 20, "AVOID"], [32, 38, "TARGET"]]}
+{"text": "spolvera cucina bagno salone", "entities": [[9, 15, "TARGET"], [16, 21, "TARGET"], [22, 28, "TARGET"]]}
+{"text": "ripulisci camera ospiti ma evita zona divano", "entities": [[10, 23, "TARGET"], [33, 44, "AVOID"]]}
+{"text": "pulisci camera ospiti e bagno, evita salone", "entities": [[8, 21, "TARGET"], [24, 29, "TARGET"], [37, 43, "AVOID"]]}
+{"text": "pulisci bagno evitando cucina e salone poi pulisci soggiorno", "entities": [[8, 13, "TARGET"], [23, 29, "AVOID"], [32, 38, "AVOID"], [51, 60, "TARGET"]]}
+{"text": "pulisci cucina, evita bagno, poi sistema soggiorno", "entities": [[8, 14, "TARGET"], [22, 27, "AVOID"], [41, 50, "TARGET"]]}
+{"text": "vai in cucina ma evita il soggiorno e il bagno", "entities": [[7, 13, "TARGET"], [26, 35, "AVOID"], [41, 46, "AVOID"]]}
+{"text": "vai in cucina, evita il soggiorno e il bagno", "entities": [[7, 13, "TARGET"], [24, 33, "AVOID"], [39, 44, "AVOID"]]}
+{"text": "vai in cucina, evita il soggiorno, il bagno", "entities": [[7, 13, "TARGET"], [24, 33, "AVOID"], [38, 43, "AVOID"]]}
+{"text": "vai in cucina però evita il soggiorno e il bagno", "entities": [[7, 13, "TARGET"], [28, 37, "AVOID"], [43, 48, "AVOID"]]}
+{"text": "vai in camera ma evita cucina e bagno", "entities": [[7, 13, "TARGET"], [23, 29, "AVOID"], [32, 37, "AVOID"]]}
+{"text": "raggiungi il salone evitando bagno e corridoio", "entities": [[13, 19, "TARGET"], [29, 34, "AVOID"], [37, 46, "AVOID"]]}
+{"text": "spostati in cucina evitando soggiorno, bagno e camera", "entities": [[12, 18, "TARGET"], [28, 37, "AVOID"], [39, 44, "AVOID"], [47, 53, "AVOID"]]}
+{"text": "portati in bagno ma evita salone e cucina", "entities": [[11, 16, "TARGET"], [26, 32, "AVOID"], [35, 41, "AVOID"]]}
+{"text": "vai in ingresso, evita cucina, salone e corridoio", "entities": [[7, 15, "TARGET"], [23, 29, "AVOID"], [31, 37, "AVOID"], [40, 49, "AVOID"]]}
+{"text": "vai in cucina, non passare da soggiorno né in bagno", "entities": [[7, 13, "TARGET"], [30, 39, "AVOID"], [46, 51, "AVOID"]]}
+{"text": "vai in camera, non passare da cucina né da salone", "entities": [[7, 13, "TARGET"], [30, 36, "AVOID"], [43, 49, "AVOID"]]}
+{"text": "raggiungi bagno, non andare in cucina e manco in soggiorno", "entities": [[10, 15, "TARGET"], [31, 37, "AVOID"], [49, 58, "AVOID"]]}
+{"text": "vai in salone senza passare da bagno e cucina", "entities": [[7, 13, "TARGET"], [31, 36, "AVOID"], [39, 45, "AVOID"]]}
+{"text": "ripulisci bagno, cucina, salone e corridoio", "entities": [[10, 15, "TARGET"], [17, 23, "TARGET"], [25, 31, "TARGET"], [34, 43, "TARGET"]]}
+{"text": "pulisci bagno, cucina, salone e corridoio", "entities": [[8, 13, "TARGET"], [15, 21, "TARGET"], [23, 29, "TARGET"], [32, 41, "TARGET"]]}
+{"text": "spolvera cucina, bagno, salone e corridoio", "entities": [[9, 15, "TARGET"], [17, 22, "TARGET"], [24, 30, "TARGET"], [33, 42, "TARGET"]]}
+{"text": "sistema camera, ingresso, ripostiglio e bagno", "entities": [[8, 14, "TARGET"], [16, 24, "TARGET"], [26, 37, "TARGET"], [40, 45, "TARGET"]]}

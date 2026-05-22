@@ -19,6 +19,11 @@ fai pulizia nel salone,CLEAN_AREA
 pulisci la cucina evitando il bagno,CLEAN_AREA
 pulisci il soggiorno passando dal corridoio,CLEAN_AREA
 puliscimi la camera,CLEAN_AREA
+spolvera la cucina,CLEAN_AREA
+dai una passata al bagno,CLEAN_AREA
+fai una pulita al soggiorno,CLEAN_AREA
+ripulisci la camera,CLEAN_AREA
+sistema l'ingresso,CLEAN_AREA
 vai in cucina,GO_TO_AREA
 raggiungi il bagno,GO_TO_AREA
 portati in soggiorno,GO_TO_AREA
@@ -89,3 +94,29 @@ il gatto dorme sul divano,UNKNOWN
 quanto costa il pane,UNKNOWN
 raccontami una storia,UNKNOWN
 che tempo fa oggi,UNKNOWN
+spolvera il bagno,CLEAN_AREA
+spolvera il soggiorno,CLEAN_AREA
+spolvera la camera,CLEAN_AREA
+sistema la cucina,CLEAN_AREA
+sistema il soggiorno,CLEAN_AREA
+sistema il bagno,CLEAN_AREA
+dai una passata in cucina,CLEAN_AREA
+dai una passata in bagno,CLEAN_AREA
+fai una passata in soggiorno,CLEAN_AREA
+fai una pulita in camera,CLEAN_AREA
+ripulisci il bagno,CLEAN_AREA
+ripulisci cucina e soggiorno,CLEAN_AREA
+dai una sistemata alla cucina,CLEAN_AREA
+dai una sistemata al salone,CLEAN_AREA
+passa in bagno,CLEAN_AREA
+passa in cucina,CLEAN_AREA
+pulisci bene il soggiorno,CLEAN_AREA
+spolvera la cucina evitando il bagno,CLEAN_AREA
+sistema il soggiorno ma evita il bagno,CLEAN_AREA
+dai una passata in cucina ma non andare in salone,CLEAN_AREA
+fai una pulita in bagno evitando la cucina,CLEAN_AREA
+ripulisci la camera senza passare dal soggiorno,CLEAN_AREA
+fai una passata in bagno,CLEAN_AREA
+dai una pulita alla cucina,CLEAN_AREA
+sistema bene il salone,CLEAN_AREA
+spolvera camera e ingresso,CLEAN_AREA

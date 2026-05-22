@@ -1,7 +1,38 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any
+
+
+AVOID_MARKERS = (
+    "evita",
+    "evitando",
+    "non passare",
+    "senza passare",
+    "non andare",
+    "non entrare",
+    "senza entrare",
+    "tranne",
+    "escluso",
+    "esclusi",
+    "esclusa",
+    "a parte",
+    "non",
+    "né",
+    "manco",
+)
+
+TARGET_VERBS = (
+    "pulisci",
+    "spolvera",
+    "sistema",
+    "ripulisci",
+    "vai",
+    "raggiungi",
+    "spostati",
+    "portati",
+)
 
 
 class SupervisedSlotExtractor:
@@ -18,26 +49,34 @@ class SupervisedSlotExtractor:
 
         area_lookup = self._area_lookup(area_names)
         doc = self.nlp(text)
-        targets: list[str] = []
-        avoid: list[str] = []
-        via: list[str] = []
+        entities = []
 
         for ent in doc.ents:
             area = self._normalize_area(ent.text, area_lookup)
             if area is None:
                 continue
-            if ent.label_ == "TARGET":
+            if ent.label_ in {"TARGET", "AVOID"}:
+                entities.append((ent.start_char, ent.end_char, ent.label_, area))
+        entities.extend(self._extract_explicit_avoid_list(text, area_lookup))
+
+        targets: list[str] = []
+        avoid: list[str] = []
+        for _, _, label, area in self._prefer_longest_entities(entities):
+            if label == "TARGET":
                 targets.append(area)
-            elif ent.label_ == "AVOID":
+            elif label == "AVOID":
                 avoid.append(area)
-            elif ent.label_ == "VIA":
-                via.append(area)
+
+        if not self._has_avoid_marker(text):
+            targets.extend(avoid)
+            avoid = []
+
+        avoid_set = set(avoid)
 
         return {
-            "targets": self._unique(targets),
+            "targets": self._unique([area for area in targets if area not in avoid_set]),
             "constraints": {
                 "avoid": self._unique(avoid),
-                "via": self._unique(via),
             },
         }
 
@@ -46,7 +85,6 @@ class SupervisedSlotExtractor:
         return bool(
             slots.get("targets")
             or constraints.get("avoid")
-            or constraints.get("via")
         )
 
     def _load_model(self) -> None:
@@ -97,6 +135,59 @@ class SupervisedSlotExtractor:
     def _area_lookup(self, area_names: list[str]) -> dict[str, str]:
         return {area.strip().lower(): area.strip().lower() for area in area_names if area.strip()}
 
+    def _extract_explicit_avoid_list(
+        self,
+        text: str,
+        area_lookup: dict[str, str],
+    ) -> list[tuple[int, int, str, str]]:
+        text_lower = text.lower()
+        area_spans = self._known_area_spans(text_lower, area_lookup)
+        avoid_entities = []
+
+        for marker in AVOID_MARKERS:
+            for marker_match in re.finditer(rf"(?<!\w){re.escape(marker)}(?!\w)", text_lower):
+                start = marker_match.end()
+                end = self._next_target_verb_start(text_lower, start)
+                for area_start, area_end, area in area_spans:
+                    if start <= area_start < end:
+                        avoid_entities.append((area_start, area_end, "AVOID", area))
+
+        return self._prefer_longest_entities(avoid_entities)
+
+    def _has_avoid_marker(self, text: str) -> bool:
+        text_lower = text.lower()
+        return any(
+            re.search(rf"(?<!\w){re.escape(marker)}(?!\w)", text_lower)
+            for marker in AVOID_MARKERS
+        )
+
+    def _known_area_spans(
+        self,
+        text_lower: str,
+        area_lookup: dict[str, str],
+    ) -> list[tuple[int, int, str]]:
+        spans = []
+        for area in sorted(area_lookup, key=len, reverse=True):
+            for match in re.finditer(rf"(?<!\w){re.escape(area)}(?!\w)", text_lower):
+                spans.append((match.start(), match.end(), area_lookup[area]))
+
+        selected = []
+        occupied: list[tuple[int, int]] = []
+        for start, end, area in sorted(spans, key=lambda item: (item[1] - item[0], -item[0]), reverse=True):
+            if any(start < used_end and end > used_start for used_start, used_end in occupied):
+                continue
+            selected.append((start, end, area))
+            occupied.append((start, end))
+        return sorted(selected, key=lambda item: item[0])
+
+    def _next_target_verb_start(self, text_lower: str, start: int) -> int:
+        next_start = len(text_lower)
+        for verb in TARGET_VERBS:
+            match = re.search(rf"(?<!\w){re.escape(verb)}(?!\w)", text_lower[start:])
+            if match:
+                next_start = min(next_start, start + match.start())
+        return next_start
+
     def _normalize_area(self, value: str, area_lookup: dict[str, str]) -> str | None:
         normalized = value.strip().lower()
         for prefix in (
@@ -118,18 +209,36 @@ class SupervisedSlotExtractor:
             "l’",
             "per ",
             "da ",
+            "in ",
         ):
             if normalized.startswith(prefix):
                 normalized = normalized[len(prefix):]
                 break
         return area_lookup.get(normalized)
 
+    def _prefer_longest_entities(
+        self,
+        entities: list[tuple[int, int, str, str]],
+    ) -> list[tuple[int, int, str, str]]:
+        selected: list[tuple[int, int, str, str]] = []
+        occupied: list[tuple[int, int]] = []
+        for entity in sorted(
+            entities,
+            key=lambda item: (item[1] - item[0], item[2] == "AVOID", -item[0]),
+            reverse=True,
+        ):
+            start, end, _, _ = entity
+            if any(start < used_end and end > used_start for used_start, used_end in occupied):
+                continue
+            selected.append(entity)
+            occupied.append((start, end))
+        return sorted(selected, key=lambda item: item[0])
+
     def _empty_slots(self) -> dict[str, Any]:
         return {
             "targets": [],
             "constraints": {
                 "avoid": [],
-                "via": [],
             },
         }
 
@@ -149,4 +258,3 @@ class SupervisedSlotExtractor:
     def _warn(self, message: str) -> None:
         if self.logger:
             self.logger.warning(message)
-
