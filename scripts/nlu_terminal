@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+from cleanbit_simulate.nlu.terminal_interface import main
+
+if __name__ == "__main__":
+    main()
