@@ -7,12 +7,12 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from .command_schema import build_command
-from .command_validator import CommandValidator
-from .semantic_map_client import SemanticMapClient
-from .intent.embedding_intent_classifier import EmbeddingIntentClassifier
-from .slots.spacy_slot_extractor import SpacySlotExtractor
-from .slots.supervised_slot_extractor import SupervisedSlotExtractor
+from cleanbit_simulate.nlu.command_schema import build_command
+from cleanbit_simulate.nlu.command_validator import CommandValidator
+from cleanbit_simulate.nlu.intent.embedding_intent_classifier import EmbeddingIntentClassifier
+from cleanbit_simulate.nlu.semantic_map_client import SemanticMapClient
+from cleanbit_simulate.nlu.slots.spacy_slot_extractor import SpacySlotExtractor
+from cleanbit_simulate.nlu.slots.supervised_slot_extractor import SupervisedSlotExtractor
 
 
 class NluNode(Node):
@@ -68,7 +68,8 @@ def main(args=None) -> None:
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

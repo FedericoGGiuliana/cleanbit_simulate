@@ -107,7 +107,8 @@ def main(args=None) -> None:
         run_terminal(node)
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
         spin_thread.join(timeout=1.0)
 
 

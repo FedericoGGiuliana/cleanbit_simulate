@@ -24,19 +24,17 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/nlu_node")
-  install(PROGRAMS
-    scripts/nlu_node
-    DESTINATION lib/${PROJECT_NAME}
-  )
-endif()
+install(
+  PROGRAMS cleanbit_simulate/nlu/nlu_node.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME nlu_node
+)
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/nlu_terminal")
-  install(PROGRAMS
-    scripts/nlu_terminal
-    DESTINATION lib/${PROJECT_NAME}
-  )
-endif()
+install(
+  PROGRAMS cleanbit_simulate/nlu/terminal_interface.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME nlu_terminal
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
