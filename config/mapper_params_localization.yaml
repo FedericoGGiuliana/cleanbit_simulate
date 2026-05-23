@@ -1,0 +1,28 @@
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+
+    # Modalità localizzazione — non mappa, usa mappa salvata
+    mode: localization
+
+    # Path alla mappa salvata — sovrascritto dal launcher
+    map_file_name: ""
+
+    map_start_at_dock: true
+
+    base_frame: base_footprint
+    odom_frame: cleanbit/odom
+    map_frame: map
+    scan_topic: /scan
+
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    transform_publish_period: 0.02
+    transform_timeout: 0.2
+    minimum_travel_distance: 0.5
+    minimum_travel_heading: 0.5
