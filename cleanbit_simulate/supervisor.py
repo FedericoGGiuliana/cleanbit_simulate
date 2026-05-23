@@ -24,6 +24,7 @@ class SupervisorNode(Node):
         self.clean_avoid_pub      = self.create_publisher(String, '/clean_avoid',    10)
 
         self.active_process = None
+        self.current_behaviour = None
 
         self.get_logger().info('Supervisor in ascolto su /nlp_intent')
 
@@ -57,11 +58,31 @@ class SupervisorNode(Node):
             self.launch('cleanbit_simulate', 'mapping.launch.py')
 
         elif intent == 'GO_TO_AREA':
-            if self.active_process and self.active_process.poll() is None:
+            if not targets:
+                self.get_logger().warn('GO_TO_AREA senza targets, ignoro')
+                return
+
+            # Controlla se la mappa esiste
+            from ament_index_python.packages import get_package_share_directory
+            import os
+            maps_dir  = os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps')
+            map_yaml  = os.path.join(maps_dir, 'home_map.yaml')
+            map_pgm   = os.path.join(maps_dir, 'home_map.pgm')
+
+            if not os.path.exists(map_yaml) or not os.path.exists(map_pgm):
+                self.get_logger().error('Mappa non trovata — esegui prima il mapping!')
+                return
+
+            # Lancia navigation se non è già attiva
+            if self.active_process is None or self.active_process.poll() is not None:
+                self._launch_navigation()
+                time.sleep(5.0)
+            elif self.current_behaviour != 'navigation':
                 self.stop_current_behaviour()
                 self._launch_navigation()
                 time.sleep(5.0)
-            self._publish(self.navigate_avoid_pub,   avoid)
+
+            self._publish(self.navigate_avoid_pub, avoid)
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, targets)
 
@@ -84,12 +105,13 @@ class SupervisorNode(Node):
         from ament_index_python.packages import get_package_share_directory
         import os
         map_path = os.path.join(
-            get_package_share_directory('cleanbit_simulate'), 'maps', 'home_map')
+            get_package_share_directory('cleanbit_simulate'), 'maps', 'home_map.yaml')
         self.get_logger().info(f'Avvio navigazione con mappa: {map_path}')
         self.active_process = subprocess.Popen([
             'ros2', 'launch', 'cleanbit_simulate', 'navigation.launch.py',
             f'map_file:={map_path}'
         ])
+        self.current_behaviour = 'navigation'
 
     def _publish(self, publisher, data: list):
         """Pubblica una lista come JSON string, solo se non vuota."""
@@ -103,6 +125,7 @@ class SupervisorNode(Node):
         self.active_process = subprocess.Popen(
             ['ros2', 'launch', package, launch_file]
         )
+        self.current_behaviour = 'mapping' if 'mapping' in launch_file else 'navigation'
 
     def stop_current_behaviour(self):
         if self.active_process and self.active_process.poll() is None:
@@ -110,7 +133,7 @@ class SupervisorNode(Node):
             self.active_process.terminate()
             self.active_process.wait()
             self.active_process = None
-
+            self.current_behaviour = None
 
 def main(args=None):
     rclpy.init(args=args)
