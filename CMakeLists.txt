@@ -22,6 +22,7 @@ install(PROGRAMS
   cleanbit_simulate/map_manager_node.py
   cleanbit_simulate/room_editor.py
   cleanbit_simulate/navigation_manager.py
+  cleanbit_simulate/cleaning_controller.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
