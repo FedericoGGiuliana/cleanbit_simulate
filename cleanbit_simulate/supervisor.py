@@ -86,17 +86,6 @@ class SupervisorNode(Node):
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, targets)
 
-        elif intent == 'CLEAN_AREA':
-            if not targets:
-                self.get_logger().warn('CLEAN_AREA senza targets, ignoro')
-                return
-            if self.active_process and self.active_process.poll() is None:
-                self.stop_current_behaviour()
-                self.launch('cleanbit_simulate', 'navigation.launch.py')
-
-                time.sleep(5.0)
-            self._publish(self.clean_request_pub, targets)
-            self._publish(self.clean_avoid_pub,   avoid)
 
         else:
             self.get_logger().warn(f'Intent sconosciuto: {intent}')
