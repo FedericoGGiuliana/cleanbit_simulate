@@ -1,19 +1,29 @@
 #!/usr/bin/env python3
-
 import subprocess
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 import json
+import time
+
 
 class SupervisorNode(Node):
 
     def __init__(self):
         super().__init__('supervisor_node')
+
         self.nlp_sub = self.create_subscription(
             String, '/nlp_intent', self.intent_callback, 10)
-        
-        self.active_process = None  # processo di lancio attivo
+
+        # Publisher navigazione
+        self.navigate_request_pub = self.create_publisher(String, '/goal_request',   10)
+        self.navigate_avoid_pub   = self.create_publisher(String, '/navigate_avoid', 10)
+
+        # Publisher cleaning
+        self.clean_request_pub    = self.create_publisher(String, '/clean_request',  10)
+        self.clean_avoid_pub      = self.create_publisher(String, '/clean_avoid',    10)
+
+        self.active_process = None
 
         self.get_logger().info('Supervisor in ascolto su /nlp_intent')
 
@@ -24,17 +34,69 @@ class SupervisorNode(Node):
             self.get_logger().error(f'JSON non valido: {e}')
             return
 
-        intent = data.get('intent', '')
-        self.get_logger().info(f'Intent ricevuto: {intent}')
+        # Legge intent e command dal formato NLU
+        intent_block = data.get('intent', {})
+        intent       = intent_block.get('name', '')
+        confidence   = intent_block.get('confidence', 0.0)
+        requires_clarification = intent_block.get('requires_clarification', False)
+        command      = data.get('command', {})
+        targets      = command.get('targets', [])
+        avoid        = command.get('constraints', {}).get('avoid', [])
 
-        # Ferma il behaviour attivo
-        self.stop_current_behaviour()
+        self.get_logger().info(f'Intent: {intent} (confidence: {confidence:.2f})')
 
-        # Avvia il behaviour corretto
-        if intent == 'explore':
+        # Ignora se richiede chiarimento
+        if requires_clarification:
+            dialogue = data.get('dialogue', {})
+            question = dialogue.get('question', '')
+            self.get_logger().warn(f'Chiarimento richiesto: {question}')
+            return
+
+        if intent == 'START_MAPPING':
+            self.stop_current_behaviour()
             self.launch('cleanbit_simulate', 'mapping.launch.py')
+
+        elif intent == 'GO_TO_AREA':
+            if self.active_process and self.active_process.poll() is None:
+                self.stop_current_behaviour()
+                self._launch_navigation()
+                time.sleep(5.0)
+            self._publish(self.navigate_avoid_pub,   avoid)
+            time.sleep(0.2)
+            self._publish(self.navigate_request_pub, targets)
+
+        elif intent == 'CLEAN_AREA':
+            if not targets:
+                self.get_logger().warn('CLEAN_AREA senza targets, ignoro')
+                return
+            if self.active_process and self.active_process.poll() is None:
+                self.stop_current_behaviour()
+                self.launch('cleanbit_simulate', 'navigation.launch.py')
+
+                time.sleep(5.0)
+            self._publish(self.clean_request_pub, targets)
+            self._publish(self.clean_avoid_pub,   avoid)
+
         else:
             self.get_logger().warn(f'Intent sconosciuto: {intent}')
+    
+    def _launch_navigation(self):
+        from ament_index_python.packages import get_package_share_directory
+        import os
+        map_path = os.path.join(
+            get_package_share_directory('cleanbit_simulate'), 'maps', 'home_map')
+        self.get_logger().info(f'Avvio navigazione con mappa: {map_path}')
+        self.active_process = subprocess.Popen([
+            'ros2', 'launch', 'cleanbit_simulate', 'navigation.launch.py',
+            f'map_file:={map_path}'
+        ])
+
+    def _publish(self, publisher, data: list):
+        """Pubblica una lista come JSON string, solo se non vuota."""
+        if data:
+            msg = String()
+            msg.data = json.dumps(data)
+            publisher.publish(msg)
 
     def launch(self, package: str, launch_file: str):
         self.get_logger().info(f'Avvio {launch_file}...')
@@ -61,6 +123,7 @@ def main(args=None):
         node.stop_current_behaviour()
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

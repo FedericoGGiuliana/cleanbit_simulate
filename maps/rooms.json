@@ -1,0 +1,68 @@
+[
+  {
+    "name": "cucina",
+    "world": {
+      "x_min": -0.648,
+      "y_min": -2.5,
+      "x_max": 3.602,
+      "y_max": 0.6,
+      "center_x": 1.477,
+      "center_y": -0.95
+    }
+  },
+  {
+    "name": "camera",
+    "world": {
+      "x_min": 3.752,
+      "y_min": -2.55,
+      "x_max": 8.602,
+      "y_max": 0.6,
+      "center_x": 6.177,
+      "center_y": -0.975
+    }
+  },
+  {
+    "name": "bagno",
+    "world": {
+      "x_min": 3.952,
+      "y_min": -5.65,
+      "x_max": 6.852,
+      "y_max": -2.7,
+      "center_x": 5.402,
+      "center_y": -4.175
+    }
+  },
+  {
+    "name": "ripostiglio",
+    "world": {
+      "x_min": 7.002,
+      "y_min": -5.65,
+      "x_max": 8.502,
+      "y_max": -2.75,
+      "center_x": 7.752,
+      "center_y": -4.2
+    }
+  },
+  {
+    "name": "salotto",
+    "world": {
+      "x_min": -0.648,
+      "y_min": -7.55,
+      "x_max": 3.802,
+      "y_max": -2.7,
+      "center_x": 1.577,
+      "center_y": -5.125
+    }
+  },
+  {
+    "name": "ingresso",
+    "world": {
+      "x_min": 3.952,
+      "y_min": -7.55,
+      "x_max": 8.502,
+      "y_max": -5.8,
+      "center_x": 6.227,
+      "center_y": -6.675
+    }
+  }
+]

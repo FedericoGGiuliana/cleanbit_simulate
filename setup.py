@@ -29,6 +29,7 @@ setup(
             'map_manager = cleanbit_simulate.map_manager_node:main',
             'nlu_node = cleanbit_simulate.nlu.nlu_node:main',
             'nlu_terminal = cleanbit_simulate.nlu.terminal_interface:main',
+            'navigation_manager = cleanbit_simulate.navigation_manager:main',
         ],
     },
 )
