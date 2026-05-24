@@ -120,3 +120,66 @@ fai una passata in bagno,CLEAN_AREA
 dai una pulita alla cucina,CLEAN_AREA
 sistema bene il salone,CLEAN_AREA
 spolvera camera e ingresso,CLEAN_AREA
+vai in camera,GO_TO_AREA
+vai in bagno,GO_TO_AREA
+vai in cucina,GO_TO_AREA
+vai in salone,GO_TO_AREA
+vai in soggiorno,GO_TO_AREA
+raggiungi la camera,GO_TO_AREA
+raggiungi il bagno,GO_TO_AREA
+raggiungi la cucina,GO_TO_AREA
+spostati in cucina,GO_TO_AREA
+spostati in camera,GO_TO_AREA
+portati in salone,GO_TO_AREA
+portami in cucina,GO_TO_AREA
+vai in cucina evitando il bagno,GO_TO_AREA
+vai in bagno evitando la camera,GO_TO_AREA
+vai in salone evitando il corridoio,GO_TO_AREA
+raggiungi la camera evitando la cucina,GO_TO_AREA
+spostati in soggiorno evitando il bagno,GO_TO_AREA
+vai in bagno evitando camera e salotto,GO_TO_AREA
+vai in cucina evitando il bagno e il salone,GO_TO_AREA
+vai in camera evitando cucina e bagno,GO_TO_AREA
+raggiungi il bagno evitando camera e salotto,GO_TO_AREA
+spostati in cucina evitando bagno e salone,GO_TO_AREA
+portati in camera evitando cucina e bagno,GO_TO_AREA
+"vai in cucina evitando bagno, salone e corridoio",GO_TO_AREA
+"vai in bagno evitando cucina, salone e camera",GO_TO_AREA
+"raggiungi il soggiorno evitando cucina, bagno e corridoio",GO_TO_AREA
+"spostati in camera evitando bagno, salone e ingresso",GO_TO_AREA
+"portati in salone evitando cucina, camera e bagno",GO_TO_AREA
+"vai in cucina evitando bagno, salone, camera e corridoio",GO_TO_AREA
+"vai in bagno evitando cucina, salone, camera e ingresso",GO_TO_AREA
+"raggiungi la camera evitando cucina, bagno, salone e corridoio",GO_TO_AREA
+"spostati in soggiorno evitando cucina, bagno, camera e ingresso",GO_TO_AREA
+vai in cucina ma evita bagno,GO_TO_AREA
+vai in cucina ma evita bagno e salone,GO_TO_AREA
+"vai in cucina ma evita bagno, salone e corridoio",GO_TO_AREA
+"vai in cucina ma evita bagno, salone, camera e corridoio",GO_TO_AREA
+"raggiungi bagno ma evita cucina, salone e camera",GO_TO_AREA
+"spostati in camera ma evita bagno, cucina e ingresso",GO_TO_AREA
+vai in cucina senza passare dal bagno,GO_TO_AREA
+vai in cucina senza passare da bagno e salone,GO_TO_AREA
+"vai in cucina senza passare da bagno, salone e corridoio",GO_TO_AREA
+"vai in cucina senza passare da bagno, salone, camera e corridoio",GO_TO_AREA
+"raggiungi bagno senza passare da cucina, salone e camera",GO_TO_AREA
+"vai in cucina, non passare dal bagno",GO_TO_AREA
+"vai in cucina, non passare da bagno e salone",GO_TO_AREA
+"vai in cucina, non passare da bagno, salone e corridoio",GO_TO_AREA
+"vai in cucina, non passare da bagno, salone, camera e corridoio",GO_TO_AREA
+"vai in cucina, non passare da bagno né da salone",GO_TO_AREA
+"vai in cucina, non passare da bagno né da salone né da camera",GO_TO_AREA
+"vai in bagno, non andare in cucina e manco in salone",GO_TO_AREA
+"raggiungi camera, non entrare in bagno, manco in cucina e nemmeno in salone",GO_TO_AREA
+passa in cucina,CLEAN_AREA
+passa in bagno,CLEAN_AREA
+passa in soggiorno,CLEAN_AREA
+passa in salone,CLEAN_AREA
+passa in camera,CLEAN_AREA
+passa in cucina a pulire,CLEAN_AREA
+passa in bagno a pulire,CLEAN_AREA
+passa in soggiorno a pulire,CLEAN_AREA
+passa in cucina e pulisci,CLEAN_AREA
+passa in bagno e pulisci,CLEAN_AREA
+passa in cucina a dare una pulita,CLEAN_AREA
+passa in bagno a dare una pulita,CLEAN_AREA
