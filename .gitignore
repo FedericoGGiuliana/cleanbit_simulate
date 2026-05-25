@@ -2,3 +2,6 @@
 # Python cache
 __pycache__/
 *.pyc
+
+# Trained NLU model weights
+models/joint_nlu_bertino/

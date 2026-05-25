@@ -1,0 +1,43 @@
+{"text": "vai in gilgamesh", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 16, "label": "TARGET"}]}
+{"text": "vai in avalon", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}]}
+{"text": "pulisci mordor", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}]}
+{"text": "aspira narnia", "intent": "CLEAN_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}]}
+{"text": "vai in gilgamesh evitando mordor", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 16, "label": "TARGET"}, {"start": 26, "end": 32, "label": "AVOID"}]}
+{"text": "vai in avalon evitando mordor e narnia", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}, {"start": 23, "end": 29, "label": "AVOID"}, {"start": 32, "end": 38, "label": "AVOID"}]}
+{"text": "pulisci narnia evitando avalon", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}, {"start": 24, "end": 30, "label": "AVOID"}]}
+{"text": "pulisci atlantide evitando olimpo e mordor", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 17, "label": "TARGET"}, {"start": 27, "end": 33, "label": "AVOID"}, {"start": 36, "end": 42, "label": "AVOID"}]}
+{"text": "vai in cucina evitando bagno, salone e mordor", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}, {"start": 23, "end": 28, "label": "AVOID"}, {"start": 30, "end": 36, "label": "AVOID"}, {"start": 39, "end": 45, "label": "AVOID"}]}
+{"text": "pulisci bagno evitando cucina e salone", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 13, "label": "TARGET"}, {"start": 23, "end": 29, "label": "AVOID"}, {"start": 32, "end": 38, "label": "AVOID"}]}
+{"text": "pulisci cucina e bagno evitando salone e corridoio", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}, {"start": 17, "end": 22, "label": "TARGET"}, {"start": 32, "end": 38, "label": "AVOID"}, {"start": 41, "end": 50, "label": "AVOID"}]}
+{"text": "vai in gilgamesh senza passare da mordor e avalon", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 16, "label": "TARGET"}, {"start": 34, "end": 40, "label": "AVOID"}, {"start": 43, "end": 49, "label": "AVOID"}]}
+{"text": "vai in cucina", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}]}
+{"text": "vai in bagno", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 12, "label": "TARGET"}]}
+{"text": "pulisci cucina", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}]}
+{"text": "aspira salone", "intent": "CLEAN_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}]}
+{"text": "pulisci sala da pranzo evitando bagno", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 22, "label": "TARGET"}, {"start": 32, "end": 37, "label": "AVOID"}]}
+{"text": "vai in camera ospiti evitando zona divano", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 20, "label": "TARGET"}, {"start": 30, "end": 41, "label": "AVOID"}]}
+{"text": "fermati subito", "intent": "STOP_TASK", "entities": []}
+{"text": "stop tutto", "intent": "STOP_TASK", "entities": []}
+{"text": "alt", "intent": "STOP_TASK", "entities": []}
+{"text": "blocca tutto", "intent": "STOP_TASK", "entities": []}
+{"text": "annulla il comando", "intent": "STOP_TASK", "entities": []}
+{"text": "42", "intent": "UNKNOWN", "entities": []}
+{"text": "!!!", "intent": "UNKNOWN", "entities": []}
+{"text": "ripeti", "intent": "UNKNOWN", "entities": []}
+{"text": "vai", "intent": "UNKNOWN", "entities": []}
+{"text": "torna", "intent": "UNKNOWN", "entities": []}
+{"text": "ciao", "intent": "UNKNOWN", "entities": []}
+{"text": "ciao come stai", "intent": "UNKNOWN", "entities": []}
+{"text": "buongiorno", "intent": "UNKNOWN", "entities": []}
+{"text": "grazie", "intent": "UNKNOWN", "entities": []}
+{"text": "come va", "intent": "UNKNOWN", "entities": []}
+{"text": "tutto bene", "intent": "UNKNOWN", "entities": []}
+{"text": "il cielo è blu", "intent": "UNKNOWN", "entities": []}
+{"text": "aspira la stanza delle armi", "intent": "CLEAN_AREA", "entities": [{"start": 10, "end": 27, "label": "TARGET"}]}
+{"text": "fai una passata al piano di sopra", "intent": "CLEAN_AREA", "entities": [{"start": 19, "end": 33, "label": "TARGET"}]}
+{"text": "pulisci la sala dei giochi evitando zona del camino", "intent": "CLEAN_AREA", "entities": [{"start": 11, "end": 26, "label": "TARGET"}, {"start": 36, "end": 51, "label": "AVOID"}]}
+{"text": "spostati verso il bunker-7", "intent": "GO_TO_AREA", "entities": [{"start": 18, "end": 26, "label": "TARGET"}]}
+{"text": "raggiungi deposito evitando zona A, zona B e zona C", "intent": "GO_TO_AREA", "entities": [{"start": 10, "end": 18, "label": "TARGET"}, {"start": 28, "end": 34, "label": "AVOID"}, {"start": 36, "end": 42, "label": "AVOID"}, {"start": 45, "end": 51, "label": "AVOID"}]}
+{"text": "lava il garage", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}]}
+{"text": "spostati in officina evitando cucina, salotto e camino", "intent": "GO_TO_AREA", "entities": [{"start": 12, "end": 20, "label": "TARGET"}, {"start": 30, "end": 36, "label": "AVOID"}, {"start": 38, "end": 45, "label": "AVOID"}, {"start": 48, "end": 54, "label": "AVOID"}]}
+{"text": "vai in cucina evitando bagno, garage e armeria", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}, {"start": 23, "end": 28, "label": "AVOID"}, {"start": 30, "end": 36, "label": "AVOID"}, {"start": 39, "end": 46, "label": "AVOID"}]}

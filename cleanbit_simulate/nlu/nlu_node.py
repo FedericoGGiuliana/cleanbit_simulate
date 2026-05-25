@@ -9,10 +9,7 @@ from std_msgs.msg import String
 
 from cleanbit_simulate.nlu.command_schema import build_command
 from cleanbit_simulate.nlu.command_validator import CommandValidator
-from cleanbit_simulate.nlu.intent.embedding_intent_classifier import EmbeddingIntentClassifier
-from cleanbit_simulate.nlu.semantic_map_client import SemanticMapClient
-from cleanbit_simulate.nlu.slots.spacy_slot_extractor import SpacySlotExtractor
-from cleanbit_simulate.nlu.slots.supervised_slot_extractor import SupervisedSlotExtractor
+from cleanbit_simulate.nlu.joint.inference import JointNLUInference
 
 
 class NluNode(Node):
@@ -26,14 +23,10 @@ class NluNode(Node):
             10,
         )
 
-        semantic_map = SemanticMapClient(logger=self.get_logger())
-        self.area_names = semantic_map.get_area_names()
-        self.classifier = EmbeddingIntentClassifier(logger=self.get_logger())
-        self.supervised_slot_extractor = SupervisedSlotExtractor(logger=self.get_logger())
-        self.slot_extractor = SpacySlotExtractor(
-            self.area_names,
-            logger=self.get_logger(),
-        )
+        self.joint_nlu = JointNLUInference(logger=self.get_logger())
+        if not self.joint_nlu.available:
+            raise RuntimeError("Joint NLU BERTino non disponibile: impossibile avviare nlu_node")
+
         self.validator = CommandValidator()
         self.get_logger().info("Cleanbit NLU in ascolto su /nlu/input_text")
 
@@ -41,10 +34,15 @@ class NluNode(Node):
         text = msg.data
         self.get_logger().info(f"Input NLU: {text}")
 
-        internal_intent, confidence = self.classifier.classify(text)
-        slots = self.supervised_slot_extractor.extract(text, internal_intent, self.area_names)
-        if not self.supervised_slot_extractor.has_slots(slots):
-            slots = self.slot_extractor.extract(text, internal_intent)
+        parsed = self.joint_nlu.parse(text)
+        internal_intent = parsed["intent"]
+        confidence = parsed["confidence"]
+        slots = {
+            "targets": parsed["targets"],
+            "constraints": {
+                "avoid": parsed["avoid"],
+            },
+        }
         validation = self.validator.validate(text, internal_intent, confidence, slots)
         command = build_command(
             internal_intent=internal_intent,
@@ -56,7 +54,7 @@ class NluNode(Node):
 
         output = json.dumps(command, ensure_ascii=False)
         self.intent_publisher.publish(String(data=output))
-        self.get_logger().info(f"Output NLU: {output}")
+        self.get_logger().info(f"Output NLU joint: {output}")
 
 
 def main(args=None) -> None:
