@@ -7,12 +7,12 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from .command_schema import build_command
-from .command_validator import CommandValidator
-from .context_manager import ContextManager
-from .embedding_intent_classifier import EmbeddingIntentClassifier
-from .semantic_map_client import SemanticMapClient
-from .spacy_slot_extractor import SpacySlotExtractor
+from cleanbit_simulate.nlu.command_schema import build_command
+from cleanbit_simulate.nlu.command_validator import CommandValidator
+from cleanbit_simulate.nlu.intent.embedding_intent_classifier import EmbeddingIntentClassifier
+from cleanbit_simulate.nlu.semantic_map_client import SemanticMapClient
+from cleanbit_simulate.nlu.slots.spacy_slot_extractor import SpacySlotExtractor
+from cleanbit_simulate.nlu.slots.supervised_slot_extractor import SupervisedSlotExtractor
 
 
 class NluNode(Node):
@@ -27,13 +27,14 @@ class NluNode(Node):
         )
 
         semantic_map = SemanticMapClient(logger=self.get_logger())
+        self.area_names = semantic_map.get_area_names()
         self.classifier = EmbeddingIntentClassifier(logger=self.get_logger())
+        self.supervised_slot_extractor = SupervisedSlotExtractor(logger=self.get_logger())
         self.slot_extractor = SpacySlotExtractor(
-            semantic_map.get_area_names(),
+            self.area_names,
             logger=self.get_logger(),
         )
         self.validator = CommandValidator()
-        self.context_manager = ContextManager()
         self.get_logger().info("Cleanbit NLU in ascolto su /nlu/input_text")
 
     def input_callback(self, msg: String) -> None:
@@ -41,16 +42,17 @@ class NluNode(Node):
         self.get_logger().info(f"Input NLU: {text}")
 
         internal_intent, confidence = self.classifier.classify(text)
-        slots = self.slot_extractor.extract(text, internal_intent)
+        slots = self.supervised_slot_extractor.extract(text, internal_intent, self.area_names)
+        if not self.supervised_slot_extractor.has_slots(slots):
+            slots = self.slot_extractor.extract(text, internal_intent)
         validation = self.validator.validate(text, internal_intent, confidence, slots)
         command = build_command(
             internal_intent=internal_intent,
             confidence=confidence,
             original_text=text,
             slots=slots,
-            dialogue=validation["dialogue"],
+            requires_clarification=not validation["valid"],
         )
-        self.context_manager.update(command)
 
         output = json.dumps(command, ensure_ascii=False)
         self.intent_publisher.publish(String(data=output))
@@ -66,7 +68,8 @@ def main(args=None) -> None:
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

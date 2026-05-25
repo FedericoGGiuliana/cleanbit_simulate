@@ -4,7 +4,10 @@ from rclpy.node import Node
 from visualization_msgs.msg import MarkerArray
 from slam_toolbox.srv import SaveMap
 from std_msgs.msg import String
+from geometry_msgs.msg import PoseWithCovarianceStamped
+from nav_msgs.msg import Odometry
 import os
+import json
 from ament_index_python.packages import get_package_share_directory
 import subprocess
 import time
@@ -15,16 +18,21 @@ class MapManagerNode(Node):
         package_name = 'cleanbit_simulate'
 
         self.map_path = os.path.join(get_package_share_directory(package_name), 'maps', 'home_map')
-        self.room_editor_path = os.path.join(
-            os.path.dirname(__file__),
-            'room_editor.py'
-        )
+        self.pose_path = os.path.join(get_package_share_directory(package_name), 'maps', 'initial_pose.json')
+        self.room_editor_path = os.path.join(os.path.dirname(__file__), 'room_editor.py')
 
         self.map_saved = False
         self.exploration_started = False
+        self.current_pose = None
 
         self.frontier_sub = self.create_subscription(
             MarkerArray, '/explore/frontiers', self.frontier_callback, 10)
+
+        self.pose_sub = self.create_subscription(
+            Odometry, '/odom', self.odom_callback, 10)
+
+        self.initialpose_pub = self.create_publisher(
+            PoseWithCovarianceStamped, '/initialpose', 10)
 
         self.last_frontier_time = None
         self.watchdog = self.create_timer(2.0, self.check_exploration_done)
@@ -32,6 +40,42 @@ class MapManagerNode(Node):
 
         self.status_pub = self.create_publisher(String, '/mapping_status', 10)
         self.get_logger().info(f'MapManager avviato. Mappa verrà salvata in: {self.map_path}')
+
+        self._pose_timer = self.create_timer(3.0, self._publish_saved_pose_once)
+
+    def odom_callback(self, msg: Odometry):
+        self.current_pose = msg.pose.pose
+
+    def _publish_saved_pose_once(self):
+        self._pose_timer.cancel()
+        if not os.path.exists(self.pose_path):
+            return
+        try:
+            with open(self.pose_path, 'r') as f:
+                pose_data = json.load(f)
+            self._publish_initialpose(
+                pose_data['x'], pose_data['y'], pose_data['z'],
+                pose_data['qx'], pose_data['qy'], pose_data['qz'], pose_data['qw']
+            )
+            self.get_logger().info(f'Pose iniziale pubblicata: x={pose_data["x"]:.2f}, y={pose_data["y"]:.2f}')
+        except Exception as e:
+            self.get_logger().error(f'Errore lettura pose: {e}')
+
+    def _publish_initialpose(self, x, y, z, qx, qy, qz, qw):
+        msg = PoseWithCovarianceStamped()
+        msg.header.frame_id = 'map'
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.pose.pose.position.x = x
+        msg.pose.pose.position.y = y
+        msg.pose.pose.position.z = z
+        msg.pose.pose.orientation.x = qx
+        msg.pose.pose.orientation.y = qy
+        msg.pose.pose.orientation.z = qz
+        msg.pose.pose.orientation.w = qw
+        msg.pose.covariance[0]  = 0.25
+        msg.pose.covariance[7]  = 0.25
+        msg.pose.covariance[35] = 0.07
+        self.initialpose_pub.publish(msg)
 
     def frontier_callback(self, msg: MarkerArray):
         if len(msg.markers) > 0:
@@ -65,12 +109,21 @@ class MapManagerNode(Node):
             self.map_saved = True
             self.get_logger().info(f'Mappa salvata in {self.map_path}!')
 
-            map_yaml = self.map_path + '.yaml'
-            self.get_logger().info(f'room_editor_path: {self.room_editor_path}')
-            self.get_logger().info(f'room_editor esiste: {os.path.exists(self.room_editor_path)}')
-            self.get_logger().info(f'map yaml esiste:   {os.path.exists(map_yaml)}')
-            self.get_logger().info(f'DISPLAY: {os.environ.get("DISPLAY", "NON TROVATO")}')
+            if self.current_pose is not None:
+                pose_data = {
+                    'x':  self.current_pose.position.x,
+                    'y':  self.current_pose.position.y,
+                    'z':  self.current_pose.position.z,
+                    'qx': self.current_pose.orientation.x,
+                    'qy': self.current_pose.orientation.y,
+                    'qz': self.current_pose.orientation.z,
+                    'qw': self.current_pose.orientation.w,
+                }
+                with open(self.pose_path, 'w') as f:
+                    json.dump(pose_data, f)
+                self.get_logger().info(f'Pose salvata: x={pose_data["x"]:.2f}, y={pose_data["y"]:.2f}')
 
+            map_yaml = self.map_path + '.yaml'
             proc = subprocess.Popen(
                 ['python3', self.room_editor_path, '--map', map_yaml],
                 env={**os.environ, 'DISPLAY': ':0'},

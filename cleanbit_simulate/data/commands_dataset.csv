@@ -7,6 +7,8 @@ scansiona la casa,START_MAPPING
 avvia la mappatura,START_MAPPING
 comincia esplorazione,START_MAPPING
 crea la mappa dell'ambiente,START_MAPPING
+costruisci la mappa,START_MAPPING
+parti con la mappa,START_MAPPING
 pulisci la cucina,CLEAN_AREA
 aspira il bagno,CLEAN_AREA
 lava il soggiorno,CLEAN_AREA
@@ -15,6 +17,13 @@ inizia a pulire il ripostiglio,CLEAN_AREA
 passa lo sporco in cucina,CLEAN_AREA
 fai pulizia nel salone,CLEAN_AREA
 pulisci la cucina evitando il bagno,CLEAN_AREA
+pulisci il soggiorno passando dal corridoio,CLEAN_AREA
+puliscimi la camera,CLEAN_AREA
+spolvera la cucina,CLEAN_AREA
+dai una passata al bagno,CLEAN_AREA
+fai una pulita al soggiorno,CLEAN_AREA
+ripulisci la camera,CLEAN_AREA
+sistema l'ingresso,CLEAN_AREA
 vai in cucina,GO_TO_AREA
 raggiungi il bagno,GO_TO_AREA
 portati in soggiorno,GO_TO_AREA
@@ -23,6 +32,8 @@ vai all'ingresso,GO_TO_AREA
 raggiungi il ripostiglio passando dal salone,GO_TO_AREA
 vai in cucina evitando il bagno,GO_TO_AREA
 muoviti verso il corridoio,GO_TO_AREA
+vai nel salone,GO_TO_AREA
+raggiungi la camera attraversando il corridoio,GO_TO_AREA
 torna alla base,RETURN_HOME
 ritorna alla base,RETURN_HOME
 vai alla stazione di ricarica,RETURN_HOME
@@ -31,46 +42,8 @@ rientra alla base,RETURN_HOME
 raggiungi la dock,RETURN_HOME
 vai al punto di partenza,RETURN_HOME
 rientra alla stazione,RETURN_HOME
-metti in pausa,PAUSE_TASK
-pausa il lavoro,PAUSE_TASK
-fermati un momento,PAUSE_TASK
-sospendi la pulizia,PAUSE_TASK
-blocca temporaneamente il compito,PAUSE_TASK
-interrompi per ora,PAUSE_TASK
-aspetta un attimo,PAUSE_TASK
-metti la missione in pausa,PAUSE_TASK
-riprendi,RESUME_TASK
-continua il lavoro,RESUME_TASK
-prosegui la pulizia,RESUME_TASK
-riparti,RESUME_TASK
-riavvia il compito sospeso,RESUME_TASK
-continua da dove eri rimasto,RESUME_TASK
-puoi andare avanti,RESUME_TASK
-riprendi la missione,RESUME_TASK
-stop,STOP_TASK
-ferma tutto,STOP_TASK
-annulla il compito,STOP_TASK
-interrompi la pulizia,STOP_TASK
-basta così,STOP_TASK
-termina la missione,STOP_TASK
-cancella l'attività corrente,STOP_TASK
-arresta il robot,STOP_TASK
-pulisci anche la cucina,MODIFY_TASK
-evita anche il bagno,MODIFY_TASK
-non evitare più il bagno,MODIFY_TASK
-togli la cucina,MODIFY_TASK
-aggiungi il soggiorno,MODIFY_TASK
-rimuovi il bagno dalle aree da evitare,MODIFY_TASK
-togli il ripostiglio dal percorso,MODIFY_TASK
-modifica il compito evitando il corridoio,MODIFY_TASK
-dove si trova la cucina,QUERY_AREA
-che area è questa,QUERY_AREA
-quali stanze conosci,QUERY_AREA
-dimmi le aree salvate,QUERY_AREA
-mostrami le stanze disponibili,QUERY_AREA
-la cucina è nella mappa,QUERY_AREA
-conosci il bagno,QUERY_AREA
-quali aree posso indicare,QUERY_AREA
+torna al caricatore,RETURN_HOME
+rientra alla base di ricarica,RETURN_HOME
 cosa stai facendo,STATUS_REQUEST
 a che punto sei,STATUS_REQUEST
 qual è lo stato,STATUS_REQUEST
@@ -79,6 +52,8 @@ sei fermo o stai lavorando,STATUS_REQUEST
 quanto manca,STATUS_REQUEST
 stai pulendo,STATUS_REQUEST
 la missione è attiva,STATUS_REQUEST
+come procede,STATUS_REQUEST
+dammi un aggiornamento,STATUS_REQUEST
 aiuto,HELP_REQUEST
 help,HELP_REQUEST
 cosa posso dire,HELP_REQUEST
@@ -87,6 +62,28 @@ mostrami i comandi,HELP_REQUEST
 come ti posso comandare,HELP_REQUEST
 dammi una mano,HELP_REQUEST
 spiegami cosa sai fare,HELP_REQUEST
+che comandi posso usare,HELP_REQUEST
+mi serve aiuto,HELP_REQUEST
+sì,CONFIRM
+si,CONFIRM
+ok,CONFIRM
+va bene,CONFIRM
+confermo,CONFIRM
+procedi,CONFIRM
+esatto,CONFIRM
+corretto,CONFIRM
+fallo,CONFIRM
+conferma,CONFIRM
+no,DENY
+non confermo,DENY
+annulla,DENY
+lascia stare,DENY
+non farlo,DENY
+negativo,DENY
+sbagliato,DENY
+ferma la richiesta,DENY
+non va bene,DENY
+rifiuto,DENY
 blabla senza senso,UNKNOWN
 banana sul tavolo,UNKNOWN
 non so cosa voglio,UNKNOWN
@@ -95,3 +92,31 @@ parole casuali robot cielo,UNKNOWN
 domani forse vediamo,UNKNOWN
 il gatto dorme sul divano,UNKNOWN
 quanto costa il pane,UNKNOWN
+raccontami una storia,UNKNOWN
+che tempo fa oggi,UNKNOWN
+spolvera il bagno,CLEAN_AREA
+spolvera il soggiorno,CLEAN_AREA
+spolvera la camera,CLEAN_AREA
+sistema la cucina,CLEAN_AREA
+sistema il soggiorno,CLEAN_AREA
+sistema il bagno,CLEAN_AREA
+dai una passata in cucina,CLEAN_AREA
+dai una passata in bagno,CLEAN_AREA
+fai una passata in soggiorno,CLEAN_AREA
+fai una pulita in camera,CLEAN_AREA
+ripulisci il bagno,CLEAN_AREA
+ripulisci cucina e soggiorno,CLEAN_AREA
+dai una sistemata alla cucina,CLEAN_AREA
+dai una sistemata al salone,CLEAN_AREA
+passa in bagno,CLEAN_AREA
+passa in cucina,CLEAN_AREA
+pulisci bene il soggiorno,CLEAN_AREA
+spolvera la cucina evitando il bagno,CLEAN_AREA
+sistema il soggiorno ma evita il bagno,CLEAN_AREA
+dai una passata in cucina ma non andare in salone,CLEAN_AREA
+fai una pulita in bagno evitando la cucina,CLEAN_AREA
+ripulisci la camera senza passare dal soggiorno,CLEAN_AREA
+fai una passata in bagno,CLEAN_AREA
+dai una pulita alla cucina,CLEAN_AREA
+sistema bene il salone,CLEAN_AREA
+spolvera camera e ingresso,CLEAN_AREA

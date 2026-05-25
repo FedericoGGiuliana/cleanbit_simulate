@@ -13,6 +13,9 @@ FALLBACK_AREAS = [
     "ripostiglio",
     "salone",
     "corridoio",
+    "sala da pranzo",
+    "zona divano",
+    "camera ospiti",
 ]
 
 
@@ -52,7 +55,7 @@ class SemanticMapClient:
 
             candidates.append(
                 Path(get_package_share_directory("cleanbit_simulate"))
-                / "cleanbit_simulate"
+                / "maps"
                 / "rooms.json"
             )
         except Exception:
@@ -61,7 +64,7 @@ class SemanticMapClient:
         candidates.extend(
             [
                 Path(__file__).resolve().parents[1] / "rooms.json",
-                Path("~/cleanbit_ws/src/cleanbit_simulate/cleanbit_simulate/rooms.json").expanduser(),
+                Path("~/dev_ws/src/cleanbit_simulate/maps/rooms.json").expanduser(),
             ]
         )
 

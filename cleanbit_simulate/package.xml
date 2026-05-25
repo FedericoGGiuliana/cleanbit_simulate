@@ -22,6 +22,9 @@
   <exec_depend>scikit-learn</exec_depend>
   <exec_depend>joblib</exec_depend>
   <exec_depend>spacy</exec_depend>
+  
+  <exec_depend>opennav_coverage</exec_depend>
+  <exec_depend>opennav_coverage_msgs</exec_depend>
 
 
   <test_depend>ament_lint_auto</test_depend>

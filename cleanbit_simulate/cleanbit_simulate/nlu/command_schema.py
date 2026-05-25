@@ -3,18 +3,18 @@ from __future__ import annotations
 from typing import Any
 
 
+SCHEMA_SOURCE = "cleanbit_nlu"
+SCHEMA_VERSION = "1.0"
+
 INTERNAL_INTENTS = (
     "START_MAPPING",
     "CLEAN_AREA",
     "GO_TO_AREA",
     "RETURN_HOME",
-    "PAUSE_TASK",
-    "RESUME_TASK",
-    "STOP_TASK",
-    "MODIFY_TASK",
-    "QUERY_AREA",
     "STATUS_REQUEST",
     "HELP_REQUEST",
+    "CONFIRM",
+    "DENY",
     "UNKNOWN",
 )
 
@@ -23,31 +23,12 @@ INTENT_TO_ACTION = {
     "CLEAN_AREA": "clean",
     "GO_TO_AREA": "navigate",
     "RETURN_HOME": "return_home",
-    "PAUSE_TASK": "pause",
-    "RESUME_TASK": "resume",
-    "STOP_TASK": "stop",
-    "MODIFY_TASK": "modify_active_task",
-    "QUERY_AREA": "query_area",
-    "STATUS_REQUEST": "status_request",
-    "HELP_REQUEST": "help_request",
-    "UNKNOWN": "unknown",
+    "STATUS_REQUEST": "status",
+    "HELP_REQUEST": "help",
+    "CONFIRM": "confirm",
+    "DENY": "deny",
+    "UNKNOWN": None,
 }
-
-SUPERVISOR_INTENT_ALIASES = {
-    "START_MAPPING": "explore",
-}
-
-
-def external_intent_for(internal_intent: str) -> str:
-    return SUPERVISOR_INTENT_ALIASES.get(internal_intent, internal_intent)
-
-
-def empty_dialogue() -> dict[str, Any]:
-    return {
-        "requires_clarification": False,
-        "clarification_type": None,
-        "clarification_question": None,
-    }
 
 
 def build_command(
@@ -55,26 +36,83 @@ def build_command(
     confidence: float,
     original_text: str,
     slots: dict[str, Any] | None = None,
-    dialogue: dict[str, Any] | None = None,
+    requires_clarification: bool = False,
 ) -> dict[str, Any]:
     slots = slots or {}
     constraints = slots.get("constraints", {})
-    action = INTENT_TO_ACTION.get(internal_intent, "unknown")
+    confidence = round(float(confidence), 3)
+
+    if requires_clarification or internal_intent == "UNKNOWN":
+        return _clarification_command(internal_intent, confidence, original_text)
 
     return {
-        "intent": external_intent_for(internal_intent),
-        "internal_intent": internal_intent,
-        "confidence": round(float(confidence), 3),
+        "source": SCHEMA_SOURCE,
+        "version": SCHEMA_VERSION,
         "original_text": original_text,
-        "task": {
-            "action": action,
+        "intent": {
+            "name": internal_intent,
+            "confidence": confidence,
+            "requires_clarification": False,
+        },
+        "command": {
+            "action": INTENT_TO_ACTION.get(internal_intent),
             "targets": slots.get("targets", []),
             "constraints": {
                 "avoid": constraints.get("avoid", []),
-                "via": constraints.get("via", []),
             },
-            "operation": slots.get("operation"),
         },
-        "dialogue": dialogue or empty_dialogue(),
+        "dialogue": _dialogue_for(internal_intent),
     }
 
+
+def _clarification_command(
+    internal_intent: str,
+    confidence: float,
+    original_text: str,
+) -> dict[str, Any]:
+    return {
+        "source": SCHEMA_SOURCE,
+        "version": SCHEMA_VERSION,
+        "original_text": original_text,
+        "intent": {
+            "name": internal_intent,
+            "confidence": confidence,
+            "requires_clarification": True,
+        },
+        "command": {
+            "action": None,
+            "targets": [],
+            "constraints": {
+                "avoid": [],
+            },
+        },
+        "dialogue": {
+            "state": "NEEDS_CLARIFICATION",
+            "message": "Non ho capito bene il comando.",
+            "question": "Puoi riformulare?",
+            "expected_replies": [],
+        },
+    }
+
+
+def _dialogue_for(internal_intent: str) -> dict[str, Any]:
+    if internal_intent == "CONFIRM":
+        return {
+            "state": "USER_CONFIRMATION",
+            "message": "Risposta affermativa ricevuta.",
+            "question": None,
+            "expected_replies": [],
+        }
+    if internal_intent == "DENY":
+        return {
+            "state": "USER_DENIAL",
+            "message": "Risposta negativa ricevuta.",
+            "question": None,
+            "expected_replies": [],
+        }
+    return {
+        "state": "COMMAND_READY",
+        "message": "Comando interpretato correttamente.",
+        "question": None,
+        "expected_replies": [],
+    }
