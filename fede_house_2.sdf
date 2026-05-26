@@ -1,0 +1,192 @@
+<sdf version='1.9'>
+  <world name='full_world'>
+    <gravity>0 0 -9.81</gravity>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction><ode/></friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx><ixy>0</ixy><ixz>0</ixz>
+            <iyy>1</iyy><iyz>0</iyz><izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <model name='static_environment'>
+      <static>true</static>
+      <pose>-1 1 0 0 0 0</pose>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>../meshes/casa_spazzino.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>../meshes/casa_spazzino.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx><ixy>0</ixy><ixz>0</ixz>
+            <iyy>1</iyy><iyz>0</iyz><izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <self_collide>false</self_collide>
+    </model>
+
+    <include>
+      <uri>model://kitchencountertop</uri>
+      <name>KitchenCountertop</name>
+      <pose>1.98574 0.088169 0 0 0 -1.56397</pose>
+    </include>
+
+    <include>
+      <uri>model://kitchensink</uri>
+      <name>KitchenSink</name>
+      <pose>-0.251883 -1.30443 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://chair</uri>
+      <name>Chair</name>
+      <pose>0.005019 -6.6207 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://chair</uri>
+      <name>Chair_0</name>
+      <pose>2.20492 -6.57259 0 0 0 -3.12561</pose>
+    </include>
+
+    <include>
+      <uri>model://sofa</uri>
+      <name>Sofa</name>
+      <pose>3.16701 -4.27074 0 0 0 -3.13074</pose>
+    </include>
+
+    <include>
+      <uri>model://normalbed</uri>
+      <name>NormalBed</name>
+      <pose>7.49394 -1.90024 0 0 0 3.13595</pose>
+    </include>
+
+    <include>
+      <uri>model://desk</uri>
+      <name>Desk</name>
+      <pose>8.40187 -0.249553 0 0 0 3.1312</pose>
+    </include>
+
+    <include>
+      <uri>model://deskchair</uri>
+      <name>DeskChair</name>
+      <pose>6.70497 -0.211385 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://whitecabinet</uri>
+      <name>WhiteCabinet_0</name>
+      <pose>4.80344 0.395092 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://metalcabinetyellow</uri>
+      <name>MetalCabinetYellow</name>
+      <pose>4.50138 -2.93716 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://metalcabinetyellow</uri>
+      <name>MetalCabinetYellow_0</name>
+      <pose>6.42301 -2.90786 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://whitecabinet</uri>
+      <name>WhiteCabinet_2</name>
+      <pose>6.40313 -6.05875 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://kitchensink</uri>
+      <name>KitchenSink_0</name>
+      <pose>7.3514 -4.49679 0.484893 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://coffeetable</uri>
+      <name>CoffeeTable</name>
+      <pose>3.03153 -2.09866 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://standard toilet</uri>
+      <name>Toilet</name>
+      <pose>8.13311 -2.79115 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://dining table</uri>
+      <name>DiningTable</name>
+      <pose>1.03659 -6.28962 0 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
