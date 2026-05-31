@@ -35,6 +35,16 @@ class NavigationManagerNode(Node):
             self.get_logger().error(f'Impossibile caricare rooms.json: {e}')
             self.rooms = {}
 
+        self.rooms['home'] = {
+            'name': 'home',
+            'world': {
+                'center_x': 0.0,
+                'center_y': 0.0,
+                'x_min': 0.0, 'y_min': 0.0,
+                'x_max':  0.05, 'y_max':  0.05
+            }
+        }
+
         # Carica mappa base per generare la keepout mask
         map_yaml_path = os.path.join(
             get_package_share_directory(package_name), 'maps', 'home_map.yaml')

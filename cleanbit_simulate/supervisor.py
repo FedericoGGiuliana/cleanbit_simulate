@@ -77,7 +77,7 @@ class SupervisorNode(Node):
             if self.active_process is None or self.active_process.poll() is not None:
                 self._launch_navigation()
                 time.sleep(5.0)
-            elif self.current_behaviour != 'navigation':
+            elif self.current_behaviour != 'navigation' and self.current_behaviour != 'return_home':
                 self.stop_current_behaviour()
                 self._launch_navigation()
                 time.sleep(5.0)
@@ -86,6 +86,31 @@ class SupervisorNode(Node):
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, targets)
 
+        elif intent == 'RETURN_HOME':
+
+            # Controlla se la mappa esiste
+            from ament_index_python.packages import get_package_share_directory
+            import os
+            maps_dir  = os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps')
+            map_yaml  = os.path.join(maps_dir, 'home_map.yaml')
+            map_pgm   = os.path.join(maps_dir, 'home_map.pgm')
+
+            if not os.path.exists(map_yaml) or not os.path.exists(map_pgm):
+                self.get_logger().error('Mappa non trovata — esegui prima il mapping!')
+                return
+
+            # Lancia return_home se non è già attiva
+            if self.active_process is None or self.active_process.poll() is not None:
+                self._launch_navigation()
+                time.sleep(5.0)
+            elif self.current_behaviour != 'navigation' and self.current_behaviour != 'return_home':
+                self.stop_current_behaviour()
+                self._launch_navigation()
+                time.sleep(5.0)
+
+            self._publish(self.navigate_avoid_pub, avoid)
+            time.sleep(0.2)
+            self._publish(self.navigate_request_pub, ['home'])
 
         else:
             self.get_logger().warn(f'Intent sconosciuto: {intent}')
