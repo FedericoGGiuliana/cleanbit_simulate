@@ -23,6 +23,8 @@ class SupervisorNode(Node):
         self.clean_request_pub    = self.create_publisher(String, '/clean_request',  10)
         self.clean_avoid_pub      = self.create_publisher(String, '/clean_avoid',    10)
 
+        self.behaviour_pub = self.create_publisher(String, '/current_behaviour', 10)
+
         self.active_process = None
         self.current_behaviour = None
 
@@ -56,6 +58,7 @@ class SupervisorNode(Node):
         if intent == 'START_MAPPING':
             self.stop_current_behaviour()
             self.launch('cleanbit_simulate', 'mapping.launch.py')
+            self.current_behaviour = 'mapping'
 
         elif intent == 'GO_TO_AREA':
             if not targets:
@@ -85,6 +88,7 @@ class SupervisorNode(Node):
             self._publish(self.navigate_avoid_pub, avoid)
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, targets)
+            self.current_behaviour = 'navigation'
 
         elif intent == 'RETURN_HOME':
 
@@ -111,9 +115,12 @@ class SupervisorNode(Node):
             self._publish(self.navigate_avoid_pub, avoid)
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, ['home'])
+            self.current_behaviour = 'return_home'
 
         else:
             self.get_logger().warn(f'Intent sconosciuto: {intent}')
+
+        self._publish(self.behaviour_pub, self.current_behaviour)
     
     def _launch_navigation(self):
         from ament_index_python.packages import get_package_share_directory
@@ -125,7 +132,6 @@ class SupervisorNode(Node):
             'ros2', 'launch', 'cleanbit_simulate', 'navigation.launch.py',
             f'map_file:={map_path}'
         ])
-        self.current_behaviour = 'navigation'
 
     def _publish(self, publisher, data: list):
         """Pubblica una lista come JSON string, solo se non vuota."""
@@ -139,7 +145,6 @@ class SupervisorNode(Node):
         self.active_process = subprocess.Popen(
             ['ros2', 'launch', package, launch_file]
         )
-        self.current_behaviour = 'mapping' if 'mapping' in launch_file else 'navigation'
 
     def stop_current_behaviour(self):
         if self.active_process and self.active_process.poll() is None:
