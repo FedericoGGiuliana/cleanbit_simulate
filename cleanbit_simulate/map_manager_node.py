@@ -3,11 +3,12 @@ import rclpy
 from rclpy.node import Node
 from visualization_msgs.msg import MarkerArray
 from slam_toolbox.srv import SaveMap
-from std_msgs.msg import String
+from std_msgs.msg import Bool, String
 import os
 from ament_index_python.packages import get_package_share_directory
 import subprocess
 import time
+from std_srvs.srv import SetBool
 
 class MapManagerNode(Node):
     def __init__(self):
@@ -25,6 +26,8 @@ class MapManagerNode(Node):
 
         self.frontier_sub = self.create_subscription(
             MarkerArray, '/explore/frontiers', self.frontier_callback, 10)
+        self.explore_resume_sub = self.create_subscription(
+            Bool, '/explore/resume', self.explore_resume_callback, 10)
 
         self.last_frontier_time = None
         self.watchdog = self.create_timer(2.0, self.check_exploration_done)
@@ -32,6 +35,14 @@ class MapManagerNode(Node):
 
         self.status_pub = self.create_publisher(String, '/mapping_status', 10)
         self.get_logger().info(f'MapManager avviato. Mappa verrà salvata in: {self.map_path}')
+
+    def explore_resume_callback(self, msg: Bool): # Controlla da /explore/resume se l'esplorazione è in pausa
+        if not msg.data:
+            self.get_logger().info('Esplorazione fermata manualmente — reset stato')
+            self.exploration_started = False
+            self.last_frontier_time  = None
+            self.map_saved           = False
+            self.saving              = False
 
     def frontier_callback(self, msg: MarkerArray):
         if len(msg.markers) > 0:

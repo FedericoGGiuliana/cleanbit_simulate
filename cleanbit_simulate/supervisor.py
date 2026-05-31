@@ -2,7 +2,7 @@
 import subprocess
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 import json
 import time
 
@@ -24,6 +24,9 @@ class SupervisorNode(Node):
         self.clean_avoid_pub      = self.create_publisher(String, '/clean_avoid',    10)
 
         self.behaviour_pub = self.create_publisher(String, '/current_behaviour', 10)
+
+        self.stop_mapping_pub = self.create_publisher(Bool, '/explore/resume', 10)
+        self.stop_navigating_pub = self.create_publisher(Bool, '/emergency_stop', 10)
 
         self.active_process = None
         self.current_behaviour = None
@@ -56,11 +59,20 @@ class SupervisorNode(Node):
             return
 
         if intent == 'START_MAPPING':
-            self.stop_current_behaviour()
-            self.launch('cleanbit_simulate', 'mapping.launch.py')
+            if self.current_behaviour == 'stop_mapping':
+                resume_msg = Bool()
+                resume_msg.data = True
+                self.stop_mapping_pub.publish(resume_msg)
+                self.current_behaviour = 'mapping'
+            else:
+                self.stop_current_behaviour()
+                self.launch('cleanbit_simulate', 'mapping.launch.py')
             self.current_behaviour = 'mapping'
 
         elif intent == 'GO_TO_AREA':
+            if self.current_behaviour == 'stop_mapping':
+                self.get_logger().warn('Completa prima il mapping!')
+                return
             if not targets:
                 self.get_logger().warn('GO_TO_AREA senza targets, ignoro')
                 return
@@ -80,7 +92,7 @@ class SupervisorNode(Node):
             if self.active_process is None or self.active_process.poll() is not None:
                 self._launch_navigation()
                 time.sleep(5.0)
-            elif self.current_behaviour != 'navigation' and self.current_behaviour != 'return_home':
+            elif self.current_behaviour not in {'navigation', 'cleaning', 'return_home', 'stop'}:
                 self.stop_current_behaviour()
                 self._launch_navigation()
                 time.sleep(5.0)
@@ -107,7 +119,7 @@ class SupervisorNode(Node):
             if self.active_process is None or self.active_process.poll() is not None:
                 self._launch_navigation()
                 time.sleep(5.0)
-            elif self.current_behaviour != 'navigation' and self.current_behaviour != 'return_home':
+            elif self.current_behaviour not in {'navigation', 'cleaning', 'return_home', 'stop'}:
                 self.stop_current_behaviour()
                 self._launch_navigation()
                 time.sleep(5.0)
@@ -116,6 +128,18 @@ class SupervisorNode(Node):
             time.sleep(0.2)
             self._publish(self.navigate_request_pub, ['home'])
             self.current_behaviour = 'return_home'
+
+        elif intent == 'STOP_TASK':
+            if self.current_behaviour == 'mapping':
+                stop_msg = Bool()
+                stop_msg.data = False
+                self.stop_mapping_pub.publish(stop_msg)
+                self.current_behaviour = 'stop_mapping' # stop_mapping fa riferimento solo a mapping
+            elif self.current_behaviour in {'navigation', 'return_home', 'cleaning'}:
+                stop_msg = Bool()
+                stop_msg.data = True
+                self.stop_navigating_pub.publish(stop_msg)
+                self.current_behaviour = 'stop'  # stop fa riferimento a tutti gli altri behaviour
 
         else:
             self.get_logger().warn(f'Intent sconosciuto: {intent}')

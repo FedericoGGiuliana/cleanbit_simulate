@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 from geometry_msgs.msg import PoseStamped
 from nav2_msgs.action import FollowWaypoints
 from nav_msgs.msg import OccupancyGrid
@@ -51,10 +51,11 @@ class NavigationManagerNode(Node):
         self.base_map = self._load_map(map_yaml_path)
 
         # Subscriber
-        self.goal_sub        = self.create_subscription(String, '/goal_request',   self.goal_callback,        10)
-        self.avoid_sub       = self.create_subscription(String, '/navigate_avoid',  self.avoid_callback,       10)
-        self.clean_sub       = self.create_subscription(String, '/clean_request',   self.goal_callback,        10)
-        self.clean_avoid_sub = self.create_subscription(String, '/clean_avoid',     self.avoid_callback,       10)
+        self.goal_sub        = self.create_subscription(String, '/goal_request',   self.goal_callback,      10)
+        self.avoid_sub       = self.create_subscription(String, '/navigate_avoid',  self.avoid_callback,    10)
+        self.clean_sub       = self.create_subscription(String, '/clean_request',   self.goal_callback,     10)
+        self.clean_avoid_sub = self.create_subscription(String, '/clean_avoid',     self.avoid_callback,    10)
+        self.stop_sub        = self.create_subscription(Bool,   '/emergency_stop',  self.stop_callback,     10)
 
         # Subscriber alla mappa base (per avere header e info aggiornati)
         self.map_sub = self.create_subscription(
@@ -284,7 +285,20 @@ class NavigationManagerNode(Node):
         self.get_logger().info(
             f'Navigando verso waypoint {idx + 1}',
             throttle_duration_sec=2.0)
-
+        
+    # ─────────────────────────────────────────────
+    # EMERGENCY STOP
+    # ─────────────────────────────────────────────
+    
+    def stop_callback(self, msg: Bool):
+        if not msg.data:
+            return
+        self.get_logger().warn('Emergency stop ricevuto!')
+        if self.current_goal_handle:
+            self.current_goal_handle.cancel_goal_async()
+            self.current_goal_handle = None
+        self.clear_keepout_mask()
+        self.pending_avoid = []
 
 def main(args=None):
     rclpy.init(args=args)
