@@ -7,10 +7,6 @@ INTENT_LABELS = [
     "GO_TO_AREA",
     "RETURN_HOME",
     "STOP_TASK",
-    "STATUS_REQUEST",
-    "HELP_REQUEST",
-    "CONFIRM",
-    "DENY",
     "UNKNOWN",
 ]
 
@@ -28,10 +24,6 @@ INTENT_TO_ACTION = {
     "GO_TO_AREA": "navigate",
     "RETURN_HOME": "return_home",
     "STOP_TASK": "stop",
-    "STATUS_REQUEST": "status",
-    "HELP_REQUEST": "help",
-    "CONFIRM": "confirm",
-    "DENY": "deny",
     "UNKNOWN": None,
 }
 
