@@ -23,6 +23,7 @@ install(PROGRAMS
   cleanbit_simulate/room_editor.py
   cleanbit_simulate/navigation_manager.py
   cleanbit_simulate/cleaning_controller.py
+  cleanbit_simulate/pyqt_gui_interface.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
