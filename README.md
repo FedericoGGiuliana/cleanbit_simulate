@@ -1,139 +1,108 @@
 # cleanbit_simulate
 
-Package ROS 2 Humble per la simulazione Cleanbit con Gazebo, SLAM Toolbox, Nav2, explore_lite e Supervisor.
+ROS 2 simulation package for the **Cleanbit** autonomous cleaning robot.
 
-## Avvio E Test
+> This repository contains the simulation stack for Cleanbit. For hardware specifications, CAD renders, real-world photos and videos, and the full robot control stack, refer to the **[main Cleanbit repository](https://github.com/FedericoGGiuliana/cleanbit_control)**.
 
-### 1. Build Workspace
+---
+
+## Overview
+
+`cleanbit_simulate` provides a full simulation environment for Cleanbit using Gazebo Ignition, and implements an **NLP-driven autonomous behaviour architecture** currently under development as part of the course **Artificial Intelligence for Robotics** at the **University of Palermo**.
+
+The architecture allows a user to control the robot through natural language commands (Italian). These are interpreted by an on-board NLU module and dispatched by a Supervisor node to the appropriate autonomous behaviour.
+
+```
+User (text) → NLU Node → /nlp_intent → Supervisor → Behaviour Launchers / Nav2 Action Clients
+```
+
+---
+
+## Architecture
+
+| Component | Description |
+|---|---|
+| `nlu_node` | Joint BERTino-based NLU — classifies intent and extracts slots in a single pass |
+| `supervisor.py` | Reads structured intents and dispatches to the correct behaviour |
+| `mapping.launch.py` | SLAM Toolbox + Nav2 + explore_lite for autonomous mapping |
+| `navigation.launch.py` | map_server + AMCL + Nav2 for navigation on a saved map |
+| `map_manager_node.py` | Detects end of exploration, saves the map, launches the room editor |
+| `room_editor.py` | GUI tool to draw and name rooms on the saved map |
+| `navigation_manager.py` | Converts room names to Nav2 waypoints, manages keepout zones |
+
+---
+
+## NLU Module
+
+The NLU module is based on **BERTino** (`indigo-ai/BERTino`), an Italian DistilBERT model fine-tuned on robot command data. It performs **joint intent classification and slot filling** in a single forward pass — both tasks share the same encoder representation.
+
+**Supported intents:**
+
+| Intent | Example command |
+|---|---|
+| `START_MAPPING` | *"mappa la casa"* |
+| `GO_TO_AREA` | *"vai in cucina"* |
+| `CLEAN_AREA` | *"pulisci il soggiorno evitando il bagno"* |
+| `RETURN_HOME` | *"torna alla base"* |
+| `STOP_TASK` | *"fermati"* |
+| `UNKNOWN` | anything unrecognised |
+
+**Extracted slots:** `targets` (areas to reach or clean), `avoid` (areas to avoid).
+
+---
+
+## Getting Started
+
+### 1. Build
 
 ```bash
 cd ~/cleanbit_ws
-colcon build
+colcon build --symlink-install
 source install/setup.bash
 ```
 
-### 2. Avvio Simulazione Idle Con Supervisor
+### 2. Train the NLU model
+
+This step is required before running the system for the first time.
+
+```bash
+python3 src/cleanbit_simulate/cleanbit_simulate/nlu/joint/train_joint_nlu.py
+```
+
+### 3. Launch the simulation
 
 ```bash
 ros2 launch cleanbit_simulate idle.launch.py
 ```
 
-### 3. Avvio Nodo NLU
-
-In un nuovo terminale:
+### 4. Launch the GUI
 
 ```bash
-cd ~/cleanbit_ws
-source install/setup.bash
-ros2 run cleanbit_simulate nlu_node
+python3 src/cleanbit_simulate/cleanbit_simulate/pyqt_gui_interface.py
 ```
 
-Il modulo NLU integrato in `cleanbit_simulate` legge comandi testuali da `/nlu/input_text` e pubblica JSON strutturato su `/nlp_intent`.
+---
 
-Esempio di output per `mappa la casa`:
+## Mapping Workflow
 
-```json
-{
-  "source": "cleanbit_nlu",
-  "version": "1.0",
-  "original_text": "mappa la casa",
-  "intent": {
-    "name": "START_MAPPING",
-    "confidence": 0.75,
-    "requires_clarification": false
-  },
-  "command": {
-    "action": "map",
-    "targets": [],
-    "constraints": {
-      "avoid": []
-    }
-  },
-  "dialogue": {
-    "state": "COMMAND_READY",
-    "message": "Comando interpretato correttamente.",
-    "question": null,
-    "expected_replies": []
-  }
-}
-```
+1. Launch the simulation and GUI
+2. Send a mapping command — the supervisor automatically starts `mapping.launch.py`
+3. explore_lite autonomously explores the environment
+4. When exploration is complete, the map is saved and the **Room Editor** opens
+5. Draw and name rooms on the map — coordinates are saved to `rooms.json`
+6. The robot is now ready for room-level navigation and cleaning
 
-### 4. Test Comando Testuale
+---
 
-In un nuovo terminale:
+## Python Dependencies
 
 ```bash
-cd ~/cleanbit_ws
-source install/setup.bash
-ros2 topic pub --once /nlu/input_text std_msgs/msg/String "{data: 'mappa la casa'}"
+python3 -m pip install --user torch transformers
 ```
 
-### 5. Echo Output NLU
+---
 
-```bash
-ros2 topic echo /nlp_intent --full-length
-```
+## Related
 
-### 6. Test Mappatura Completa
-
-1. Avvia la simulazione idle con Supervisor:
-
-```bash
-ros2 launch cleanbit_simulate idle.launch.py
-```
-
-2. Avvia il nodo NLU:
-
-```bash
-ros2 run cleanbit_simulate nlu_node
-```
-
-3. Pubblica il comando testuale:
-
-```bash
-ros2 topic pub --once /nlu/input_text std_msgs/msg/String "{data: 'mappa la casa'}"
-```
-
-4. Il nodo `nlu_node` pubblica su `/nlp_intent` un JSON con `intent.name: "START_MAPPING"` e `command.action: "map"`.
-
-5. Nota: il Supervisor attuale potrebbe richiedere un aggiornamento per leggere il nuovo schema JSON `1.0` prima di avviare automaticamente:
-
-```bash
-ros2 launch cleanbit_simulate mapping.launch.py
-```
-
-### 7. Training Intent Classifier
-
-```bash
-cd ~/cleanbit_ws
-python3 src/cleanbit_simulate/cleanbit_simulate/nlu/intent/train_intent_classifier.py
-```
-
-### 8. Training Slot Filler
-
-```bash
-cd ~/cleanbit_ws
-python3 src/cleanbit_simulate/cleanbit_simulate/nlu/slots/train_slot_filler.py
-```
-
-### 9. Test Slot Filler
-
-```bash
-cd ~/cleanbit_ws
-python3 src/cleanbit_simulate/cleanbit_simulate/nlu/tests/test_slot_filler.py
-```
-
-### 10. Terminale NLU
-
-Con `nlu_node` gia avviato:
-
-```bash
-ros2 run cleanbit_simulate nlu_terminal
-```
-
-### 11. Dipendenze Python
-
-```bash
-python3 -m pip install --user joblib scikit-learn sentence-transformers spacy
-python3 -m spacy download it_core_news_sm
-```
+- **[Cleanbit main repository](https://github.com/FedericoGGiuliana/cleanbit_control)** — hardware, control stack, renders, and real-world demos.
+- **Course**: Artificial Intelligence for Robotics — University of Palermo

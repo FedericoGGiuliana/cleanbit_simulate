@@ -41,3 +41,23 @@
 {"text": "lava il garage", "intent": "CLEAN_AREA", "entities": [{"start": 8, "end": 14, "label": "TARGET"}]}
 {"text": "spostati in officina evitando cucina, salotto e camino", "intent": "GO_TO_AREA", "entities": [{"start": 12, "end": 20, "label": "TARGET"}, {"start": 30, "end": 36, "label": "AVOID"}, {"start": 38, "end": 45, "label": "AVOID"}, {"start": 48, "end": 54, "label": "AVOID"}]}
 {"text": "vai in cucina evitando bagno, garage e armeria", "intent": "GO_TO_AREA", "entities": [{"start": 7, "end": 13, "label": "TARGET"}, {"start": 23, "end": 28, "label": "AVOID"}, {"start": 30, "end": 36, "label": "AVOID"}, {"start": 39, "end": 46, "label": "AVOID"}]}
+{"text": "ritorna a casa", "intent": "RETURN_HOME", "entities": []}
+{"text": "vai in base", "intent": "RETURN_HOME", "entities": []}
+{"text": "vai nella base", "intent": "RETURN_HOME", "entities": []}
+{"text": "torna alla base", "intent": "RETURN_HOME", "entities": []}
+{"text": "rientra alla stazione di ricarica", "intent": "RETURN_HOME", "entities": []}
+{"text": "vai a ricaricarti", "intent": "RETURN_HOME", "entities": []}
+{"text": "ricarica la batteria", "intent": "RETURN_HOME", "entities": []}
+{"text": "vai a caricare la batteria", "intent": "RETURN_HOME", "entities": []}
+{"text": "torna alla base evitando cucina", "intent": "RETURN_HOME", "entities": [{"start": 25, "end": 31, "label": "AVOID"}]}
+{"text": "vai in base evitando bagno e salone", "intent": "RETURN_HOME", "entities": [{"start": 21, "end": 26, "label": "AVOID"}, {"start": 29, "end": 35, "label": "AVOID"}]}
+{"text": "rientra alla stazione di ricarica evitando cucina e corridoio", "intent": "RETURN_HOME", "entities": [{"start": 43, "end": 49, "label": "AVOID"}, {"start": 52, "end": 61, "label": "AVOID"}]}
+{"text": "vai a ricaricarti evitando zona divano", "intent": "RETURN_HOME", "entities": [{"start": 27, "end": 38, "label": "AVOID"}]}
+{"text": "torna al punto iniziale senza passare da cucina e bagno", "intent": "RETURN_HOME", "entities": [{"start": 41, "end": 47, "label": "AVOID"}, {"start": 50, "end": 55, "label": "AVOID"}]}
+{"text": "quanto fa due più due", "intent": "UNKNOWN", "entities": []}
+{"text": "ciao come stai", "intent": "UNKNOWN", "entities": []}
+{"text": "cosa sai fare", "intent": "UNKNOWN", "entities": []}
+{"text": "sì", "intent": "UNKNOWN", "entities": []}
+{"text": "no", "intent": "UNKNOWN", "entities": []}
+{"text": "ok", "intent": "UNKNOWN", "entities": []}
+{"text": "ripeti", "intent": "UNKNOWN", "entities": []}

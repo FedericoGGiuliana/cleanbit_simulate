@@ -84,15 +84,44 @@ START_MAPPING_TEXTS = [
 
 RETURN_HOME_TEXTS = [
     "torna alla base",
+    "torna in base",
+    "torna a casa",
+    "ritorna a casa",
     "ritorna alla base",
-    "vai alla base",
-    "torna al punto iniziale",
-    "ritorna al punto di partenza",
-    "raggiungi la base",
-    "torna alla stazione",
     "rientra alla base",
-    "vai alla docking station",
+    "rientra in base",
+    "rientra a casa",
+    "vai alla base",
+    "vai in base",
+    "vai nella base",
+    "raggiungi la base",
+    "raggiungi la stazione",
+    "raggiungi la stazione di ricarica",
+    "torna alla stazione",
     "torna alla stazione di ricarica",
+    "ritorna alla docking station",
+    "vai alla docking station",
+    "vai alla stazione di ricarica",
+    "rientra alla docking station",
+    "rientra alla stazione di ricarica",
+    "torna al punto di partenza",
+    "ritorna al punto iniziale",
+    "torna al punto iniziale",
+    "torna dove sei partito",
+    "rientra al punto di partenza",
+    "vai a ricaricarti",
+    "vai a caricarti",
+    "vai a ricaricare la batteria",
+    "vai a caricare la batteria",
+    "ricarica la batteria",
+    "vai in carica",
+    "mettiti in carica",
+    "torna in carica",
+    "torna a ricaricarti",
+    "torna alla base di ricarica",
+    "raggiungi la base di ricarica",
+    "portati alla base",
+    "portati alla stazione di ricarica",
 ]
 
 STOP_TASK_TEXTS = [
@@ -116,58 +145,6 @@ STOP_TASK_TEXTS = [
     "interrompi la navigazione",
     "blocca immediatamente l'operazione",
     "ferma quello che stai facendo",
-]
-
-STATUS_REQUEST_TEXTS = [
-    "cosa stai facendo",
-    "qual è il tuo stato",
-    "a che punto sei",
-    "dove sei ora",
-    "sei occupato",
-    "stai pulendo",
-    "che task stai eseguendo",
-    "mostrami lo stato",
-    "dimmi cosa stai facendo",
-    "sei in movimento",
-]
-
-HELP_REQUEST_TEXTS = [
-    "che comandi capisci",
-    "cosa posso chiederti",
-    "mostrami i comandi disponibili",
-    "aiutami",
-    "dammi aiuto",
-    "quali funzioni hai",
-    "cosa sai fare",
-    "spiegami i comandi",
-    "mostra la guida",
-    "come posso usarti",
-]
-
-CONFIRM_TEXTS = [
-    "sì",
-    "si",
-    "ok",
-    "confermo",
-    "esatto",
-    "va bene",
-    "procedi",
-    "corretto",
-    "certo",
-    "fai pure",
-]
-
-DENY_TEXTS = [
-    "no",
-    "annulla",
-    "non confermo",
-    "sbagliato",
-    "lascia stare",
-    "non va bene",
-    "negativo",
-    "non procedere",
-    "non farlo",
-    "fermati no",
 ]
 
 UNKNOWN_TEXTS = [
@@ -198,6 +175,45 @@ UNKNOWN_TEXTS = [
     "come va",
     "tutto bene",
     "il cielo è blu",
+    "sì",
+    "si",
+    "ok",
+    "confermo",
+    "esatto",
+    "va bene",
+    "procedi",
+    "corretto",
+    "certo",
+    "fai pure",
+    "no",
+    "annulla",
+    "non confermo",
+    "sbagliato",
+    "lascia stare",
+    "non va bene",
+    "negativo",
+    "non procedere",
+    "non farlo",
+    "cosa stai facendo",
+    "qual è il tuo stato",
+    "a che punto sei",
+    "dove sei ora",
+    "sei occupato",
+    "stai pulendo",
+    "che task stai eseguendo",
+    "mostrami lo stato",
+    "dimmi cosa stai facendo",
+    "sei in movimento",
+    "che comandi capisci",
+    "cosa posso chiederti",
+    "mostrami i comandi disponibili",
+    "aiutami",
+    "dammi aiuto",
+    "quali funzioni hai",
+    "cosa sai fare",
+    "spiegami i comandi",
+    "mostra la guida",
+    "come posso usarti",
 ]
 
 
@@ -359,14 +375,45 @@ def build_training_rows() -> list[dict]:
     rows = build_area_rows(rng)
     rows.extend(build_generalization_focus_rows())
     rows.extend(repeat_text_rows(START_MAPPING_TEXTS, "START_MAPPING", 50))
-    rows.extend(repeat_text_rows(RETURN_HOME_TEXTS, "RETURN_HOME", 50))
+    rows.extend(build_return_home_rows(rng))
     rows.extend(repeat_text_rows(STOP_TASK_TEXTS, "STOP_TASK", 60))
-    rows.extend(repeat_text_rows(STATUS_REQUEST_TEXTS, "STATUS_REQUEST", 50))
-    rows.extend(repeat_text_rows(HELP_REQUEST_TEXTS, "HELP_REQUEST", 50))
-    rows.extend(repeat_text_rows(CONFIRM_TEXTS, "CONFIRM", 30))
-    rows.extend(repeat_text_rows(DENY_TEXTS, "DENY", 30))
-    rows.extend(repeat_text_rows(UNKNOWN_TEXTS, "UNKNOWN", 105))
+    rows.extend(repeat_text_rows(UNKNOWN_TEXTS, "UNKNOWN", 180))
     rng.shuffle(rows)
+    return rows
+
+
+def build_return_home_rows(rng: random.Random) -> list[dict]:
+    rows = repeat_text_rows(RETURN_HOME_TEXTS, "RETURN_HOME", 120)
+    return_avoid_templates = [
+        "torna alla base evitando {avoid1}",
+        "torna alla base evitando {avoid1} e {avoid2}",
+        "vai in base evitando {avoid1}",
+        "rientra alla stazione di ricarica evitando {avoid1} e {avoid2}",
+        "vai a ricaricarti evitando il {avoid1}",
+        "torna alla docking station evitando {avoid1}",
+        "raggiungi la base di ricarica senza passare da {avoid1}",
+        "torna al punto iniziale senza passare da {avoid1} e {avoid2}",
+        "rientra alla base evitando {avoid1}, {avoid2} e {avoid3}",
+        "vai in carica evitando {avoid1}, {avoid2} e {avoid3}",
+    ]
+    fixed_rows = [
+        make_row("torna alla base evitando cucina", "RETURN_HOME", [], ["cucina"]),
+        make_row("torna alla base evitando bagno e salone", "RETURN_HOME", [], ["bagno", "salone"]),
+        make_row("vai in base evitando corridoio", "RETURN_HOME", [], ["corridoio"]),
+        make_row("rientra alla stazione di ricarica evitando cucina e bagno", "RETURN_HOME", [], ["cucina", "bagno"]),
+        make_row("vai a ricaricarti evitando il salone", "RETURN_HOME", [], ["salone"]),
+        make_row("torna alla docking station evitando zona divano", "RETURN_HOME", [], ["zona divano"]),
+        make_row("raggiungi la base di ricarica senza passare da cucina", "RETURN_HOME", [], ["cucina"]),
+        make_row("torna al punto iniziale senza passare da bagno e corridoio", "RETURN_HOME", [], ["bagno", "corridoio"]),
+        make_row("rientra alla base evitando cucina, salone e bagno", "RETURN_HOME", [], ["cucina", "salone", "bagno"]),
+        make_row("vai in carica evitando zona A, zona B e zona C", "RETURN_HOME", [], ["zona A", "zona B", "zona C"]),
+    ]
+    rows.extend(fixed_rows)
+    for _ in range(80):
+        areas = choose_distinct_areas(rng, 3)
+        template = rng.choice(return_avoid_templates)
+        text = template.format(avoid1=areas[0], avoid2=areas[1], avoid3=areas[2])
+        rows.append(make_row(text, "RETURN_HOME", [], _used_avoids(template, areas)))
     return rows
 
 
@@ -449,6 +496,26 @@ def build_unseen_rows() -> list[dict]:
         make_row("lava il garage", "CLEAN_AREA", ["garage"], []),
         make_row("spostati in officina evitando cucina, salotto e camino", "GO_TO_AREA", ["officina"], ["cucina", "salotto", "camino"]),
         make_row("vai in cucina evitando bagno, garage e armeria", "GO_TO_AREA", ["cucina"], ["bagno", "garage", "armeria"]),
+        make_row("ritorna a casa", "RETURN_HOME", [], []),
+        make_row("vai in base", "RETURN_HOME", [], []),
+        make_row("vai nella base", "RETURN_HOME", [], []),
+        make_row("torna alla base", "RETURN_HOME", [], []),
+        make_row("rientra alla stazione di ricarica", "RETURN_HOME", [], []),
+        make_row("vai a ricaricarti", "RETURN_HOME", [], []),
+        make_row("ricarica la batteria", "RETURN_HOME", [], []),
+        make_row("vai a caricare la batteria", "RETURN_HOME", [], []),
+        make_row("torna alla base evitando cucina", "RETURN_HOME", [], ["cucina"]),
+        make_row("vai in base evitando bagno e salone", "RETURN_HOME", [], ["bagno", "salone"]),
+        make_row("rientra alla stazione di ricarica evitando cucina e corridoio", "RETURN_HOME", [], ["cucina", "corridoio"]),
+        make_row("vai a ricaricarti evitando zona divano", "RETURN_HOME", [], ["zona divano"]),
+        make_row("torna al punto iniziale senza passare da cucina e bagno", "RETURN_HOME", [], ["cucina", "bagno"]),
+        make_row("quanto fa due più due", "UNKNOWN", [], []),
+        make_row("ciao come stai", "UNKNOWN", [], []),
+        make_row("cosa sai fare", "UNKNOWN", [], []),
+        make_row("sì", "UNKNOWN", [], []),
+        make_row("no", "UNKNOWN", [], []),
+        make_row("ok", "UNKNOWN", [], []),
+        make_row("ripeti", "UNKNOWN", [], []),
     ]
     forbidden = set(UNSEEN_AREAS)
     training_text = "\n".join(row["text"] for row in build_training_rows())

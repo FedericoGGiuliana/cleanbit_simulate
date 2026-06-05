@@ -12,10 +12,6 @@ INTERNAL_INTENTS = (
     "GO_TO_AREA",
     "RETURN_HOME",
     "STOP_TASK",
-    "STATUS_REQUEST",
-    "HELP_REQUEST",
-    "CONFIRM",
-    "DENY",
     "UNKNOWN",
 )
 
@@ -25,10 +21,6 @@ INTENT_TO_ACTION = {
     "GO_TO_AREA": "navigate",
     "RETURN_HOME": "return_home",
     "STOP_TASK": "stop",
-    "STATUS_REQUEST": "status",
-    "HELP_REQUEST": "help",
-    "CONFIRM": "confirm",
-    "DENY": "deny",
     "UNKNOWN": None,
 }
 
@@ -98,20 +90,6 @@ def _clarification_command(
 
 
 def _dialogue_for(internal_intent: str) -> dict[str, Any]:
-    if internal_intent == "CONFIRM":
-        return {
-            "state": "USER_CONFIRMATION",
-            "message": "Risposta affermativa ricevuta.",
-            "question": None,
-            "expected_replies": [],
-        }
-    if internal_intent == "DENY":
-        return {
-            "state": "USER_DENIAL",
-            "message": "Risposta negativa ricevuta.",
-            "question": None,
-            "expected_replies": [],
-        }
     return {
         "state": "COMMAND_READY",
         "message": "Comando interpretato correttamente.",
