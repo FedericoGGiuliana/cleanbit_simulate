@@ -110,8 +110,21 @@ class CleanbitPyQtWindow(QMainWindow):
         self.signals.error.connect(self.show_error)
 
         self.setWindowTitle("CleanBit Control Panel")
-        self.resize(1200, 780)
-        self.setMinimumSize(980, 640)
+
+        screen = QApplication.primaryScreen().availableGeometry()
+        screen_width = screen.width()
+        screen_height = screen.height()
+
+        window_width = int(screen_width * 0.88)
+        window_height = int(screen_height * 0.86)
+
+        window_width = max(900, min(window_width, 1400))
+        window_height = max(620, min(window_height, 900))
+
+        self.resize(window_width, window_height)
+        self.setMinimumSize(760, 520)
+
+        self.ui_scale = max(0.85, min(screen_width / 1920, 1.15))
 
         self._build_ui()
         self._apply_style()
@@ -254,12 +267,21 @@ class CleanbitPyQtWindow(QMainWindow):
         self.return_button.clicked.connect(lambda: self.send_quick_command("torna alla base"))
         bottom_bar.addWidget(self.return_button)
 
-        self.help_button = QPushButton("Aiuto")
-        self.help_button.setObjectName("secondaryButton")
-        self.help_button.clicked.connect(lambda: self.send_quick_command("aiuto"))
-        bottom_bar.addWidget(self.help_button)
 
     def _apply_style(self) -> None:
+        scale = getattr(self, "ui_scale", 1.0)
+
+        title_size = int(26 * scale)
+        card_title_size = int(15 * scale)
+        normal_size = int(13 * scale)
+        small_size = int(12 * scale)
+        input_size = int(14 * scale)
+        button_size = int(13 * scale)
+
+        card_radius = int(14 * scale)
+        card_padding = int(16 * scale)
+        input_padding_v = int(12 * scale)
+        input_padding_h = int(16 * scale)
         self.setStyleSheet(
             """
             QMainWindow {
