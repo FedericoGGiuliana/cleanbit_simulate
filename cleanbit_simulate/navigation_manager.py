@@ -53,8 +53,6 @@ class NavigationManagerNode(Node):
         # Subscriber
         self.goal_sub        = self.create_subscription(String, '/goal_request',   self.goal_callback,      10)
         self.avoid_sub       = self.create_subscription(String, '/navigate_avoid',  self.avoid_callback,    10)
-        self.clean_sub       = self.create_subscription(String, '/clean_request',   self.goal_callback,     10)
-        self.clean_avoid_sub = self.create_subscription(String, '/clean_avoid',     self.avoid_callback,    10)
         self.stop_sub        = self.create_subscription(Bool,   '/emergency_stop',  self.stop_callback,     10)
 
         # Subscriber alla mappa base (per avere header e info aggiornati)

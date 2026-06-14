@@ -1,4 +1,5 @@
 import os
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
@@ -11,13 +12,23 @@ def generate_launch_description():
     package_name = 'cleanbit_simulate'
 
     nav2_params_path = os.path.join(
-        get_package_share_directory(package_name), 'config', 'nav2_params.yaml')
+        get_package_share_directory(package_name),
+        'config',
+        'nav2_params_navigation.yaml'
+    )
 
     twist_mux_params_path = os.path.join(
-        get_package_share_directory(package_name), 'config', 'twist_mux.yaml')
+        get_package_share_directory(package_name),
+        'config',
+        'twist_mux.yaml'
+    )
 
     default_map_path = os.path.join(
-        get_package_share_directory(package_name), 'maps', 'home_map.yaml')
+        get_package_share_directory(package_name),
+        'maps',
+        'home_map.yaml'
+    )
+
 
     map_arg = DeclareLaunchArgument(
         'map_file',
@@ -44,7 +55,6 @@ def generate_launch_description():
         parameters=[nav2_params_path, {'use_sim_time': True}]
     )
 
-
     # Fornisce metadati del filtro alla costmap
     costmap_filter_info_server = Node(
         package='nav2_map_server',
@@ -70,7 +80,11 @@ def generate_launch_description():
         parameters=[{
             'use_sim_time': True,
             'autostart': True,
-            'node_names': ['map_server', 'amcl', 'costmap_filter_info_server']
+            'node_names': [
+                'map_server',
+                'amcl',
+                'costmap_filter_info_server'
+            ]
         }]
     )
 
@@ -127,6 +141,14 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
 
+    cleaning_controller = Node(
+        package='cleanbit_simulate',
+        executable='cleaning_controller.py',
+        name='cleaning_controller_node',
+        output='screen',
+        parameters=[{'use_sim_time': True}]
+    )
+
     return LaunchDescription([
         map_arg,
         map_server,
@@ -137,4 +159,5 @@ def generate_launch_description():
         lifecycle_manager_navigation,
         twist_mux,
         navigation_manager,
+        cleaning_controller
     ])

@@ -102,6 +102,39 @@ class SupervisorNode(Node):
             self._publish(self.navigate_request_pub, targets)
             self.current_behaviour = 'navigation'
 
+        elif intent == 'CLEAN_AREA':
+            if self.current_behaviour == 'stop_mapping':
+                self.get_logger().warn('Completa prima il mapping!')
+                return
+            if not targets:
+                self.get_logger().warn('CLEAN_AREA senza targets, ignoro')
+                return
+
+            # Controlla se la mappa esiste
+            from ament_index_python.packages import get_package_share_directory
+            import os
+            maps_dir  = os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps')
+            map_yaml  = os.path.join(maps_dir, 'home_map.yaml')
+            map_pgm   = os.path.join(maps_dir, 'home_map.pgm')
+
+            if not os.path.exists(map_yaml) or not os.path.exists(map_pgm):
+                self.get_logger().error('Mappa non trovata — esegui prima il mapping!')
+                return
+
+            # Lancia navigation se non è già attiva
+            if self.active_process is None or self.active_process.poll() is not None:
+                self._launch_navigation()
+                time.sleep(5.0)
+            elif self.current_behaviour not in {'navigation', 'cleaning', 'return_home', 'stop'}:
+                self.stop_current_behaviour()
+                self._launch_navigation()
+                time.sleep(5.0)
+
+            self._publish(self.clean_avoid_pub, avoid)
+            time.sleep(0.2)
+            self._publish(self.clean_request_pub, targets)
+            self.current_behaviour = 'cleaning'
+
         elif intent == 'RETURN_HOME':
 
             # Controlla se la mappa esiste

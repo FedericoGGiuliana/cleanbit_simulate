@@ -30,7 +30,7 @@ def generate_launch_description():
     nav2_params_path = os.path.join(
         get_package_share_directory(package_name),
         'config',
-        'nav2_params.yaml'
+        'nav2_params_mapping.yaml'
     )
 
     explore_params = os.path.join(
