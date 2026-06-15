@@ -56,8 +56,10 @@ class NavigationManagerNode(Node):
         self.stop_sub        = self.create_subscription(Bool,   '/emergency_stop',  self.stop_callback,     10)
 
         # Subscriber alla mappa base (per avere header e info aggiornati)
-        self.map_sub = self.create_subscription(
-            OccupancyGrid, '/map', self.map_callback, 1)
+        self.map_sub = self.create_subscription(OccupancyGrid, '/map', self.map_callback, 1)
+
+        # Subscriber per stanze sconosciute (non presenti in rooms.json)
+        self.unknown_room_pub = self.create_publisher(String, '/unknown_room', 10)
 
         qos = QoSProfile(
             depth=1,
@@ -65,8 +67,7 @@ class NavigationManagerNode(Node):
             reliability=ReliabilityPolicy.RELIABLE
         )
 
-        self.keepout_pub = self.create_publisher(
-            OccupancyGrid, '/keepout_mask', qos)
+        self.keepout_pub = self.create_publisher(OccupancyGrid, '/keepout_mask', qos)
 
         # Action client
         self.waypoint_client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
@@ -205,9 +206,25 @@ class NavigationManagerNode(Node):
 
     def goal_callback(self, msg: String):
         try:
+            with open(os.path.join(get_package_share_directory('cleanbit_simulate'), 'maps', 'rooms.json'), 'r') as f:
+                rooms_list = json.load(f)
+            self.rooms = {r['name'].lower(): r for r in rooms_list}
+            self.rooms['home'] = {'name': 'home', 'world': {'center_x': 0.0, 'center_y': 0.0, 'x_min': 0.0, 'y_min': 0.0, 'x_max': 0.05, 'y_max': 0.05}}
+        except Exception:
+            pass
+        try:
             targets = json.loads(msg.data)
         except json.JSONDecodeError as e:
             self.get_logger().error(f'JSON goal non valido: {e}')
+            return
+        
+        # Controlla stanze sconosciute
+        unknown = [t for t in targets if t.strip().lower() not in self.rooms]
+        if unknown:
+            self.get_logger().warn(f'Stanze sconosciute: {unknown}')
+            unknown_msg = String()
+            unknown_msg.data = json.dumps(unknown)
+            self.unknown_room_pub.publish(unknown_msg)
             return
 
         self.get_logger().info(f'Target: {targets}, Avoid: {self.pending_avoid}')

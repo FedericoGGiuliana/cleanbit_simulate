@@ -28,6 +28,8 @@ class SupervisorNode(Node):
         self.stop_mapping_pub = self.create_publisher(Bool, '/explore/resume', 10)
         self.stop_navigating_pub = self.create_publisher(Bool, '/emergency_stop', 10)
 
+        self.unknown_room_sub = self.create_subscription(String, '/unknown_room', self.unknown_room_callback, 10)
+
         self.active_process = None
         self.current_behaviour = None
 
@@ -178,6 +180,29 @@ class SupervisorNode(Node):
             self.get_logger().warn(f'Intent sconosciuto: {intent}')
 
         self._publish(self.behaviour_pub, self.current_behaviour)
+
+    def unknown_room_callback(self, msg: String):
+        import os
+        unknown = json.loads(msg.data)
+        self.get_logger().warn(f'Stanze non riconosciute: {unknown}')
+
+        from ament_index_python.packages import get_package_share_directory
+        map_yaml = os.path.join(
+            get_package_share_directory('cleanbit_simulate'), 'maps', 'home_map.yaml')
+        self.room_editor_path = os.path.join(
+            os.path.dirname(__file__),
+            'room_editor.py'
+        )
+
+        # Messaggio testuale per l'utente
+        rooms_str = ', '.join(unknown)
+        self.get_logger().info(
+            f'Apro il room editor — indica sulla mappa dove si trovano: {rooms_str}')
+
+        subprocess.Popen(
+            ['python3', self.room_editor_path, '--map', map_yaml],
+            env={**os.environ, 'DISPLAY': ':0'}
+        )
     
     def _launch_navigation(self):
         from ament_index_python.packages import get_package_share_directory
